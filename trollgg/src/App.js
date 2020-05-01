@@ -8,14 +8,15 @@ const InputText = (props) => {
   const [league, setLeague] = useState("");
 
   const handleSubmit = async (e) => {
-    await axios
-      .get(
-        "http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:3000/api/user/league?summonerName=" +
-          name
-      )
-      .then((res) => {
-        console.log(res.json());
-      });
+    await axios.get(
+      "http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/user/league?summonerName=" +
+        str({ name })
+      // {
+      //   params: {
+      //     name,
+      //   },
+      // }
+    );
     setIssumbitted(true);
   };
 
