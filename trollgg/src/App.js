@@ -7,14 +7,20 @@ const InputText = (props) => {
   const [isSubmitted, setIssumbitted] = useState(false);
   const [league, setLeague] = useState("");
   const handleSubmit = async (e) => {
-    await axios.get(
-      `http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/user/league?summonerName=${name}`
+    e.preventDefault();
+    const res = await axios.get(
+      "http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/user/league?summonerName=" +
+        name
     );
+    console.log(res.data)
+    setLeague(res.data)
     setIssumbitted(true);
   };
 
   return (
     <div>
+      <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
       <form>
         <input
           placeholder="소환사 이름"
@@ -23,11 +29,11 @@ const InputText = (props) => {
           name="name"
         />
       </form>
-
-      <button type="submit" onClick={handleSubmit}>
-        제출
-      </button>
-
+      <form>
+        <button type="submit" onClick={handleSubmit}>
+          제출
+        </button>
+      </form>
       {isSubmitted && <div>{league}</div>}
     </div>
   );

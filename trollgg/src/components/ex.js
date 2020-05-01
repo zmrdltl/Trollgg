@@ -6,6 +6,7 @@ const Hello = (props) => {
       <h2>{props.name}</h2>
       <p>{props.birth}</p>
       <p>{props.gender}</p>
+      <p>power</p>
     </div>
   );
 };
