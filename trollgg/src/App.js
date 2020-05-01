@@ -6,16 +6,9 @@ const InputText = (props) => {
   const [data, setData] = useState("");
   const [isSubmitted, setIssumbitted] = useState(false);
   const [league, setLeague] = useState("");
-
   const handleSubmit = async (e) => {
     await axios.get(
-      "http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/user/league?summonerName=" +
-        name
-      // {
-      //   params: {
-      //     name,
-      //   },
-      // }
+      `http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/user/league?summonerName=${name}`
     );
     setIssumbitted(true);
   };
