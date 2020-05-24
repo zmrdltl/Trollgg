@@ -10,6 +10,7 @@
     "create-react-app": "^3.4.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-iframe": "^1.8.0",
     "react-scripts": "3.4.1",
     "resolve-url": "^0.2.1"
   },

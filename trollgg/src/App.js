@@ -1,56 +1,77 @@
 import React, { useState } from "react";
 import axios from "axios";
-
-const InputText = (props) => {
+import ResDataTable from "./components/resDataTable";
+const App = (props) => {
   const [name, setName] = useState("");
   const [isSubmitted, setIssumbitted] = useState(false);
-  const [matchlist,setMatchlist] = useState([])
-  const [league, setLeague] = useState("");
-  
+  const [league, setLeagueData] = useState("");
+  const [matchList, setMatchList] = useState([]);
+  const urlHeader =
+    "http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api";
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      handleSubmit(event);
+    }
+  };
+
   const handleSubmit = async (e) => {
     e.preventDefault();
-    	await setMatchlist([]);
-	await foo();
+    setMatchList([]);
+
+    //league res
+    var leagueRes = await axios.get(
+      urlHeader + "/user/league?summonerName=" + name
+    );
+    // match res
+
+    var matchRes = await axios.get(
+      urlHeader + "/match/matchlist?summonerName=" + name
+    );
+    var leagueData = JSON.parse(leagueRes.data);
+    let latestTenMatch = JSON.parse(matchRes.data);
+    var matchListJson = new Array();
+    console.log("리그 한게임 ", latestTenMatch[0].gameId);
+    //한게임에
+    for (var i = 0; i < 10; i++) {
+      var matchinfo = new Array();
+
+      //10명의 참여자
+      var matchRes = await axios.get(
+        urlHeader +
+          "/match/matches/participantIdentities?gameId=" +
+          latestTenMatch[i].gameId
+      );
+
+      var res = await axios.get(
+        urlHeader +
+          "/match/matches/participants?gameId=" +
+          latestTenMatch[i].gameId
+      );
+
+      var participants = JSON.parse(res.data);
+      matchRes = matchRes.data;
+      var matchDataJson = JSON.parse(matchRes);
+      console.log(matchDataJson);
+      for (var j = 0; j < 10; j++) {
+        let championId = participants[j].championId;
+        let participantId = participants[j].participantId;
+        let spell1Id = participants[j].spell1Id;
+        let spell2Id = participants[j].spell2Id;
+        matchinfo.push({
+          championId,
+          participantId,
+          spell1Id,
+          spell2Id,
+        });
+      }
+      setMatchList((matchList) => [...matchList, matchinfo]);
+    }
+    console.log(matchList);
+    setLeagueData(leagueData);
+    //개인정보 저장
     setIssumbitted(true);
   };
 
-  const foo = async()=>{
-    var res = await axios.get(
-      "http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/user/league?summonerName=" +
-        name
-    );
-    res = JSON.parse(res.data)
-    setLeague(res.summonerName+res.tier+res.rank)
-
-    res = await axios.get(
-      'http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/match/matchlist?summonerName=' +
-        name
-    )
-    var matchlistres = JSON.parse(res.data);
-    var matchlistJson = new Array();
-
-    for(var i = 0; i<10; i++){
-      res = await axios.get(
-        'http://ec2-54-180-82-172.ap-northeast-2.compute.amazonaws.com:4000/api/match/matches?gameId=' +
-        matchlistres[i].gameId
-      )
-      matchlistJson.push(JSON.parse(res.data));
-    }
-
-    for(var i = 0;i<10;i++){
-      var matchinfo = [];
-      for(var j =0;j<10;j++){
-        let summonerName = matchlistJson[i].participantIdentities[j].player.summonerName;
-        let participant =  matchlistJson[i].participants[j];
-        let teamId = participant.teamId;
-        let championId = participant.stats.championId;
-        let spell1Id = participant.spell1Id;
-        let spell2Id = participant.spell2Id;
-        matchinfo.push({summonerName,teamId,championId,spell1Id,spell2Id});
-      }
-      setMatchlist(matchlist => [...matchlist,matchinfo]);
-    }
-  }
   return (
     <div>
       <form>
@@ -58,17 +79,23 @@ const InputText = (props) => {
           placeholder="소환사 이름"
           value={name}
           onChange={(e) => setName(e.target.value)}
+          onKeyPress={handleKeyPress}
           name="name"
         />
       </form>
+
       <form>
         <button type="submit" onClick={handleSubmit}>
           제출
         </button>
       </form>
-      {isSubmitted && <div><div>{league}</div>{JSON.stringify(matchlist)}</div>} 
+      {isSubmitted && (
+        <div>
+          <ResDataTable leagueData={league} matchList={matchList} />
+        </div>
+      )}
     </div>
   );
 };
 
-export default InputText;
+export default App;
