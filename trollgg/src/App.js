@@ -56,7 +56,7 @@ const App = (props) => {
       var participants = JSON.parse(res.data);
       matchRes = matchRes.data;
       var matchDataJson = JSON.parse(matchRes);
-
+      console.log(matchDataJson);
       for (var j = 0; j < 10; j++) {
         let championId = participants[j].championId;
         let participantId = participants[j].participantId;
@@ -71,6 +71,7 @@ const App = (props) => {
       }
       setMatchList((matchList) => [...matchList, matchinfo]);
     }
+    console.log(matchList);
     setLeagueData(leagueData);
     //개인정보 저장
     setIssumbitted(true);
@@ -92,7 +93,6 @@ const App = (props) => {
       </a>
       {isSubmitted && (
         <div>
-          Go to Details
           <ResDataTable leagueData={league} matchList={matchList} />
         </div>
       )}
