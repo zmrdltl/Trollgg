@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import axios from "axios";
-const searchSummonerName = (props) => {
+import styled from "styled-components";
+const summonerName = (props) => {
   const [name, setName] = useState("");
   const [isSubmitted, setIssumbitted] = useState(false);
   const [league, setLeague] = useState("");
@@ -25,29 +26,20 @@ const searchSummonerName = (props) => {
   };
 
   return (
-    <div>
-      <form>
-        <input
-          placeholder="소환사 이름"
-          value={name}
-          onChange={(e) => setName(e.target.value)}
-          onKeyPress={handleKeyPress}
-          name="name"
-        />
-      </form>
-
-      <form>
-        <button type="submit" onClick={handleSubmit}>
-          제출
-        </button>
-      </form>
-      {isSubmitted && (
-        <div>
-          <div>{league}</div>
-        </div>
-      )}
-    </div>
+    <Container>
+      <div href="../public/index.html">Go to Details</div>
+    </Container>
   );
 };
 
-export default searchSummonerName;
+export default summonerName;
+
+const Container = styled.h1`
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: url(https://source.unsplash.com/random/1920x1080);
+  background-size: cover;
+`;
