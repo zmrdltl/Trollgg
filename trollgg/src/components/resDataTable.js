@@ -6,23 +6,25 @@ const ResDataTable = (props) => {
   //queueType: "RANKED_SOLO_5x5"
   //rank: "로마숫자"
   //encryptedSummornerId-> summonerId: "EuBfqKp2DfCRLTUqZlyD3oq25KWG5TJEAh0osQE6QtrVRA"
-  const {
-    freshBlood,
-    hotStreak,
-    inactive,
-    leagueId,
-    leaguePoints,
-    losses,
-    queueType,
-    rank,
-    summonerId,
-    summonerName,
-    tier,
-    veteran,
-    wins,
-  } = leagueData;
+  // const {
+  //   freshBlood,
+  //   hotStreak,
+  //   inactive,
+  //   leagueId,
+  //   leaguePoints,
+  //   losses,
+  //   queueType,
+  //   rank,
+  //   summonerId,
+  //   summonerName,
+  //   tier,
+  //   veteran,
+  //   wins,
+  // } = leagueData;
+
   console.log("매치리스트 :", matchList);
   console.log("리그데이터 :", leagueData);
+
   return (
     <Container>
       <MidTable>
@@ -32,11 +34,6 @@ const ResDataTable = (props) => {
               <img src="//opgg-static.akamaized.net/images/medals/bronze_2.png?image=q_auto&amp;v=1" />
             </div>
             <div>
-              <h1>솔로랭크</h1>
-              <h1>솔로랭크</h1>
-              <h1>솔로랭크</h1>
-              <h1>솔로랭크</h1>
-              <h1>솔로랭크</h1>
               <h1>솔로랭크</h1>
             </div>
           </span>
