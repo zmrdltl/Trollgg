@@ -9,7 +9,6 @@ import About from "./About";
 import NoMatch from "./NoMatch";
 const Home = (props) => {
   console.log("난 home이야 눌렸다!");
-  const {} = props;
   const [name, setName] = useState("");
   const [isSubmitted, setIssumbitted] = useState(false);
   const [league, setLeagueData] = useState("");
@@ -90,8 +89,6 @@ const Home = (props) => {
 
   return (
     <Container>
-      <Navigation />
-
       <TopImage
         src="https://attach.s.op.gg/logo/20200610124936.f53f670b00d598130e25a1f1549a4a6f.png"
         title="이즈리얼과 카이사"
@@ -100,20 +97,22 @@ const Home = (props) => {
 
       <Title>TROLL.GG</Title>
 
-      <TopDiv>
-        <div>
-          <Input
-            placeholder="소환사 이름"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            onKeyPress={handleKeyPress}
-            name="name"
-          />
-        </div>
-        <div>
-          <Button onClick={handleSubmit}>한 번만 제발</Button>
-        </div>
-      </TopDiv>
+      <TopSpan>
+        <Input
+          placeholder="소환사 이름"
+          value={name}
+          onChange={(e) => setName(e.target.value)}
+          onKeyPress={handleKeyPress}
+          name="name"
+        />
+
+        <Button
+          children={"검색"}
+          color={"#464964"}
+          background={"#e2e2e2"}
+          onClick={handleSubmit}
+        ></Button>
+      </TopSpan>
 
       {isSubmitted && (
         <Switch path="/SummonerName">
@@ -128,12 +127,6 @@ export default Home;
 
 //속성을 주는 법 styled.(속성)
 const Container = styled.div`
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  background-color: #f0fff0;
   background-size: cover;
 `;
 
@@ -142,10 +135,10 @@ const TopImage = styled.img`
   margin: 0px auto;
 `;
 
-const TopDiv = styled.span`
-  flex-direction: row;
-  justify-content: "space-evenly";
-  padding: 10px;
+const TopSpan = styled.span`
+  display: block;
+  margin: 0px auto;
+  justify-content: space-evenly;
 `;
 
 const Input = styled.input`
@@ -154,27 +147,28 @@ const Input = styled.input`
   width: 624px;
   height: 50px;
   border: 3px solid green;
-  padding: 10px;
-  left: 50%;
 `;
 
 const Title = styled.h1`
   text-align: center;
-  font-size : 35pt,
-  color : '#111111',
+  font-size : 1rem,
+  text-color : '#ffffff',
   fontWeight : 'bold',
 `;
 
-const Button = styled.button`
-  padding: 10px 15px;
-  margin: 0 5px;
-  border: none;
-  border-radius: 5px;
-  background-color: ${(props) => {
-    if (props.success) return "#249D3D";
-    else if (props.danger) return "#D72E3D";
-    else return "#7B838B";
-  }};
-  color: #ffffff;
-  font-size: 15pt;
-`;
+function Button({ children, color, background }) {
+  const StyledButton = styled.button`
+    display: block;
+    margin: 0px auto;
+    border: none;
+    border-radius: 5px;
+    color: ${(props) => props.color || "#464964"};
+    background: ${(props) => props.background || "#ffffff"};
+    font-size: 15pt;
+  `;
+  return (
+    <StyledButton color={color} background={background} Î>
+      {children}
+    </StyledButton>
+  );
+}

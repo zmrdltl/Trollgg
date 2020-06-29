@@ -20,7 +20,6 @@ const Navigation = (props) => {
       <Navbar.Brand href="/">Trollgg</Navbar.Brand>
       <Nav className="mr-auto">
         <Nav.Link href="/NoMatch">NoMatch</Nav.Link>
-        <Nav.Link href="/SummonerName">summonerName</Nav.Link>
         <Nav.Link href="/About">About</Nav.Link>
       </Nav>
       <Form inline>

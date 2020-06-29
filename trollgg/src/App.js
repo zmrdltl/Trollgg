@@ -14,8 +14,9 @@ const App = (props) => {
       <Navigation />
       <Router>
         <Switch>
-          <Route path="/" exact={true} component={Home} />
-          <Route path="/home" component={Home}></Route>
+          <Route path="/" exact={true}>
+            <Home />
+          </Route>
           <Route path="/NoMatch" component={NoMatch}></Route>
           <Route path="/SummonerName" component={SummonerName}></Route>
           <Route path="/About" component={About}></Route>
@@ -32,7 +33,7 @@ const Container = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #f0fff0;
+  background-color: #464964;
   background-size: cover;
 `;
 

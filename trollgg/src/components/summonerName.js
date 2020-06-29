@@ -45,6 +45,7 @@ const SummonerName = (props) => {
         {matchList.map((match, i) => {
           return (
             <li key={`wrap_${i}`}>
+              <li>MATCH : {i + 1}</li>
               {match.map((m, j) => {
                 return (
                   <li key={`wrap_${j}`}>
@@ -77,6 +78,7 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
+  background-color: #464964;
 `;
 
 const MidTable = styled.span`
@@ -85,7 +87,7 @@ const MidTable = styled.span`
   display: table;
   color: #879292;
   position: relative;
-  background-color: #f2f2f2;
+  background-color: #ffffff;
   padding: 8px 0;
 `;
 
