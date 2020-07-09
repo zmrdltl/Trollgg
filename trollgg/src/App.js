@@ -1,11 +1,11 @@
 import React, { useState, Fragment } from "react";
 import ResDataTable from "./components/resDataTable";
 import styled from "styled-components";
-import Navigation from "./router/nav";
-import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
+import Navigation from "./router/TopNavBar";
+import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
-import About from "./components/About";
-import NoMatch from "./components/NoMatch";
+import Rank from "./components/Rank";
+import Statistics from "./components/Statistics";
 import SummonerName from "./components/SummonerName";
 const App = (props) => {
   const [path, setPath] = useState("/");
@@ -17,9 +17,9 @@ const App = (props) => {
           <Route path="/" exact={true}>
             <Home />
           </Route>
-          <Route path="/NoMatch" component={NoMatch}></Route>
+          <Route path="/Statistics" component={Statistics}></Route>
+          <Route path="/Rank" component={Rank}></Route>
           <Route path="/SummonerName" component={SummonerName}></Route>
-          <Route path="/About" component={About}></Route>
         </Switch>
       </Router>
     </Container>
@@ -33,7 +33,7 @@ const Container = styled.div`
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: #464964;
+  background-color: #ffffff;
   background-size: cover;
 `;
 

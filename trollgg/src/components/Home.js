@@ -1,24 +1,22 @@
 import React, { useState } from "react";
 import axios from "axios";
 import styled from "styled-components";
-import Navigation from "../router/nav";
 import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import SummonerName from "./SummonerName";
 import ResDataTable from "./resDataTable";
-import About from "./About";
-import NoMatch from "./NoMatch";
+import About from "./Rank";
+import NoMatch from "./Statistics";
+import Auth from "../util/Auth";
 const Home = (props) => {
   console.log("난 home이야 눌렸다!");
   const [name, setName] = useState("");
   const [isSubmitted, setIssumbitted] = useState(false);
   const [league, setLeagueData] = useState("");
   const [matchList, setMatchList] = useState([]);
-  const [searchComplete, setSearchComplete] = useState(false);
-  const [activePath, setActivePath] = useState("/");
 
   //database에 쌓아놓은 data에 쿼리를 날리기 위해 쓰이는 함수 get
   const urlHeader =
-    "http://ec2-54-180-83-56.ap-northeast-2.compute.amazonaws.com:4000/api";
+    "http://ec2-13-124-174-195.ap-northeast-2.compute.amazonaws.com";
 
   //riot에 직접 get때리는 용 헤더
   const riotHeader =
@@ -41,7 +39,12 @@ const Home = (props) => {
     var matchRes = await axios.get(
       urlHeader + "/user/matchlist?summonerName=" + name
     );
-
+    let accountId = await axios.get(
+      urlHeader + "/user/accountId?summonerName=" + name
+    );
+    let summoner = await axios.get(
+      urlHeader + "/user/summoner?summonerName=" + name
+    );
     // console.log(matchRes);
 
     var leagueData = JSON.parse(leagueRes.data);

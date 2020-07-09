@@ -1,5 +1,5 @@
 import React from "react";
-const NoMatch = () => {
+const Statistics = () => {
   console.log("난 NoMatch이야!");
   return (
     <h>
@@ -17,4 +17,4 @@ const NoMatch = () => {
     </h>
   );
 };
-export default NoMatch;
+export default Statistics;

@@ -3,27 +3,28 @@ import axios from "axios";
 import styled from "styled-components";
 
 const SummonerName = (props) => {
+  const { leagueData, matchList } = props;
+
   //행패성 leagueId: "54fb7852-29f5-44ac-8454-7a45a0b787d3"
   //queueType: "RANKED_SOLO_5x5"
   //rank: "로마숫자"
   //encryptedSummornerId-> summonerId: "EuBfqKp2DfCRLTUqZlyD3oq25KWG5TJEAh0osQE6QtrVRA"
   console.log("SummonerName 눌렸다!!!");
-  const { leagueData, matchList } = props;
-  // const {
-  //   freshBlood,
-  //   hotStreak,
-  //   inactive,
-  //   leagueId,
-  //   leaguePoints,
-  //   losses,
-  //   queueType,
-  //   rank,
-  //   summonerId,
-  //   summonerName,
-  //   tier,
-  //   veteran,
-  //   wins,
-  // } = leagueData;
+  const {
+    freshBlood,
+    hotStreak,
+    inactive,
+    leagueId,
+    leaguePoints,
+    losses,
+    queueType,
+    rank,
+    summonerId,
+    summonerName,
+    tier,
+    veteran,
+    wins,
+  } = leagueData;
 
   console.log("매치리스트 :", matchList);
   console.log("리그데이터 :", leagueData);
@@ -78,7 +79,6 @@ const Container = styled.div`
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #464964;
 `;
 
 const MidTable = styled.span`
