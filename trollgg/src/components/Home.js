@@ -16,7 +16,7 @@ const Home = (props) => {
 
   //database에 쌓아놓은 data에 쿼리를 날리기 위해 쓰이는 함수 get
   const urlHeader =
-    "http://ec2-13-124-174-195.ap-northeast-2.compute.amazonaws.com";
+    "http://ec2-13-124-174-195.ap-northeast-2.compute.amazonaws.com:4000/api";
 
   //riot에 직접 get때리는 용 헤더
   const riotHeader =
