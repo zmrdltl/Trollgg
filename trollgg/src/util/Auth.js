@@ -5,8 +5,6 @@ export const MYSQL_PASSWORD = "9UdLF5Kg";
 export const RIOT_API_KEY = "RGAPI-c5c7eaa5-0cd3-401d-a9e0-8f3b564d4a9a";
 
 //database에 쌓아놓은 data에 쿼리를 날리기 위해 쓰이는 함수 get
-export const URL_HEADER =
-  "ec2-13-124-174-195.ap-northeast-2.compute.amazonaws.com/api/4000";
-
+export const URL_HEADER = "52.78.119.98:4000/api";
 //riot에 직접 get때리는 용 헤더
 export const RIOT_HEADER = "https://kr.api.riotgames.com/lol/";

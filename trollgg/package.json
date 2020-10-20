@@ -8,6 +8,7 @@
     "@testing-library/user-event": "^7.1.2",
     "axios": "^0.19.2",
     "bootstrap": "^4.5.0",
+    "connect-flash": "^0.1.1",
     "create-react-app": "^3.4.1",
     "react": "^16.13.1",
     "react-bootstrap": "^1.0.1",
