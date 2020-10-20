@@ -1,17 +1,16 @@
 import React, { useState, Fragment } from "react";
-import ResDataTable from "./components/resDataTable";
 import styled from "styled-components";
 import Navigation from "./router/TopNavBar";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Rank from "./components/Rank";
 import Statistics from "./components/Statistics";
-import SummonerName from "./components/SummonerName";
+import TrollSearchResult from "./components/TrollSearchResult";
 const App = (props) => {
-  const [path, setPath] = useState("/");
   return (
     <Container>
       <Navigation />
+
       <Router>
         <Switch>
           <Route path="/" exact={true}>
@@ -19,9 +18,13 @@ const App = (props) => {
           </Route>
           <Route path="/Statistics" component={Statistics}></Route>
           <Route path="/Rank" component={Rank}></Route>
-          <Route path="/SummonerName" component={SummonerName}></Route>
         </Switch>
       </Router>
+
+      <Switch>
+        <Route path="/TrollSearchResult" component={TrollSearchResult} />
+        <Route path="/TrollSearchResult/:name" component={TrollSearchResult} />
+      </Switch>
     </Container>
   );
 };
