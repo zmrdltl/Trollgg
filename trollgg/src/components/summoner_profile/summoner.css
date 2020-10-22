@@ -1,0 +1,125 @@
+h1 {
+  cursor: pointer;
+}
+body {
+  background-color: rgb(234, 234, 234);
+}
+
+.content {
+  display: flex;
+}
+
+.summoner {
+  width: 200px;
+  padding: 5px;
+  text-align: center;
+  margin-bottom: 3px;
+}
+
+.left_side {
+  border: 1px solid #cdd2d2;
+  box-shadow: 0px 1px #dcdfdf;
+  background: #f2f2f2;
+  border-radius: 2px;
+  padding: 10px 10px;
+  display: flex;
+  height: 100px;
+  margin: 10px;
+}
+
+.info {
+  margin-top: 15px;
+  text-align: center;
+}
+
+.requestSummoner {
+  text-align: right;
+  margin: 10px;
+}
+
+#inputSummoner {
+  text-align: center;
+  font-size: 25px;
+}
+
+.league {
+  color: #879292;
+  font-size: small;
+}
+
+.league_tierRank {
+  color: #1f8ecd;
+}
+
+.block {
+  border: 1px solid #cdd2d2;
+  border-radius: 3px;
+  display: flex;
+  font-size: 12px;
+  margin: 8px;
+  color: #555;
+  align-items: center;
+}
+
+.block_left {
+  padding: 0px 5px;
+  margin-left: 3px;
+  width: 75px;
+  text-align: center;
+}
+
+.stats_box {
+  padding: 15px 15px;
+}
+
+.stats_box_up {
+  display: flex;
+  align-items: center;
+}
+
+.stats_box_down {
+  font-size: 12px;
+  margin-top: 10px;
+  text-align: center;
+}
+
+.kda_box {
+  width: 70px;
+  padding: 20px 10px;
+  text-align: center;
+  font-weight: bold;
+  font-size: 15px;
+  color: #555;
+}
+
+.stats_info {
+  width: 70px;
+  margin: 10px;
+  text-align: center;
+}
+
+.item_info {
+  font-size: 11px;
+  text-align: center;
+  margin: 5px;
+}
+
+.items {
+  display: flex;
+}
+
+.item {
+  margin: 1px;
+}
+
+.item_img {
+  width: 23px;
+  height: 23px;
+  border-radius: 3px;
+  background-color: rgb(172, 172, 172);
+}
+
+.participants {
+  margin: 3px;
+  align-items: center;
+}
