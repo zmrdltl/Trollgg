@@ -1,7 +1,7 @@
 const HEADER_APPJSON = "application/json";
 const HEADER_WWWENCODED = "application/x-www-form-urlencoded;charset=UTF-8";
 
-const bodyEncoder = (data) => {
+export const bodyEncoder = (data) => {
   if (data === undefined) data = null;
   var formBody = [];
   for (var property in data) {
@@ -13,7 +13,7 @@ const bodyEncoder = (data) => {
   return formBody;
 };
 
-const getServer = async (url, data) => {
+export const getServer = async (url, data) => {
   if (data === undefined) data = null;
   try {
     url = url + "?" + bodyEncoder(data);

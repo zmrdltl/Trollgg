@@ -1,14 +1,14 @@
 import React from "react";
 import styled from "styled-components";
-import Emblem_Challenger from "../assets/ranked-emblems/Emblem_Challenger.png";
-import Emblem_Grandmaster from "../assets/ranked-emblems/Emblem_Grandmaster.png";
-import Emblem_Master from "../assets/ranked-emblems/Emblem_Master.png";
-import Emblem_Diamond from "../assets/ranked-emblems/Emblem_Diamond.png";
-import Emblem_Platinum from "../assets/ranked-emblems/Emblem_Platinum.png";
-import Emblem_Gold from "../assets/ranked-emblems/Emblem_Gold.png";
-import Emblem_Silver from "../assets/ranked-emblems/Emblem_Silver.png";
-import Emblem_Bronze from "../assets/ranked-emblems/Emblem_Bronze.png";
-import Emblem_Iron from "../assets/ranked-emblems/Emblem_Iron.png";
+import Emblem_Challenger from "../assets/ranked_emblems/Emblem_Challenger.png";
+import Emblem_Grandmaster from "../assets/ranked_emblems/Emblem_Grandmaster.png";
+import Emblem_Master from "../assets/ranked_emblems/Emblem_Master.png";
+import Emblem_Diamond from "../assets/ranked_emblems/Emblem_Diamond.png";
+import Emblem_Platinum from "../assets/ranked_emblems/Emblem_Platinum.png";
+import Emblem_Gold from "../assets/ranked_emblems/Emblem_Gold.png";
+import Emblem_Silver from "../assets/ranked_emblems/Emblem_Silver.png";
+import Emblem_Bronze from "../assets/ranked_emblems/Emblem_Bronze.png";
+import Emblem_Iron from "../assets/ranked_emblems/Emblem_Iron.png";
 
 const Rank = (props) => {
   const { Rank } = props;
