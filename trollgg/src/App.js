@@ -6,6 +6,7 @@ import Home from "./components/Home";
 import Rank from "./components/Rank";
 import Statistics from "./components/Statistics";
 import TrollSearchResult from "./components/TrollSearchResult";
+
 const App = (props) => {
   return (
     <Container>

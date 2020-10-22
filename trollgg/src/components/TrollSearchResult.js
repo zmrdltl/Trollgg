@@ -1,17 +1,35 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import queryString from "query-string";
+import ProgressBar from "../container/ProgressBar";
+import Match from "./summoner_profile/match.js";
+//행패성 leagueId: "54fb7852-29f5-44ac-8454-7a45a0b787d3"
+//queueType: "RANKED_SOLO_5x5"
+//rank: "로마숫자"
+//encryptedSummornerId-> summonerId: "EuBfqKp2DfCRLTUqZlyD3oq25KWG5TJEAh0osQE6QtrVRA"
 const TrollSearchResult = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const [isSubmitted, setIssumbitted] = useState(false);
   const [league, setLeagueData] = useState("");
   const [matchList, setMatchList] = useState([]);
   const summonerName = query.name;
-
+  const dataDone = 0;
   const urlHeader = "52.78.119.98:4000/api";
+  const [completed, setCompleted] = useState(0);
+  const [opacity, setOpacity] = useState(0);
+  const trollPercent = 90;
 
-  console.log("이름", summonerName);
+  //위험도 그래프 그리기
+  useEffect(() => {
+    if (completed < trollPercent) {
+      setTimeout(() => {
+        setOpacity(1);
+        setCompleted(completed + 1);
+      }, 5);
+    }
+  }, [completed]);
+
   const handleSubmit = async (e) => {
     e.preventDefault(); //기존 페이지 flush 안하는 코드
     console.log("submit!");
@@ -78,96 +96,36 @@ const TrollSearchResult = ({ location, match }) => {
     //개인정보 저장
     setIssumbitted(true);
   };
-
-  //행패성 leagueId: "54fb7852-29f5-44ac-8454-7a45a0b787d3"
-  //queueType: "RANKED_SOLO_5x5"
-  //rank: "로마숫자"
-  //encryptedSummornerId-> summonerId: "EuBfqKp2DfCRLTUqZlyD3oq25KWG5TJEAh0osQE6QtrVRA"
-  // const {
-  //   freshBlood,
-  //   hotStreak,
-  //   inactive,
-  //   leagueId,
-  //   leaguePoints,
-  //   losses,
-  //   queueType,
-  //   rank,
-  //   summonerId,
-  //   TrollSearchResult,
-  //   tier,
-  //   veteran,
-  //   wins,
-  // } = leagueData;
   return (
-    <Container>
-      {/* <MidTable>
-        <Medal>
-          <span>
-            <div>
-              <img src="//opgg-static.akamaized.net/images/medals/bronze_2.png?image=q_auto&amp;v=1" />
-            </div>
-            <div>
-              <h1>솔로랭크</h1>
-            </div>
-          </span>
-        </Medal>
-      </MidTable>
-      <li>
-        {matchList.map((match, i) => {
-          return (
-            <li key={`wrap_${i}`}>
-              <li>MATCH : {i + 1}</li>
-              {match.map((m, j) => {
-                return (
-                  <li key={`wrap_${j}`}>
-                    {"championId: " +
-                      m.championId +
-                      "  participantId:  " +
-                      m.participantId +
-                      "  spell1Id:  " +
-                      m.spell1Id +
-                      "  spell2Id:  " +
-                      m.spell2Id}
-                  </li>
-                );
-              })}
-            </li>
-          );
-        })}
-      </li> */}
-      <p>awefaewfawefawefawfawe</p>
-      <h2>{summonerName}</h2>
-    </Container>
-    // <Container>
-    //   <div>Go to Details</div>
-    // </Container>
+    <div style={container}>
+      <div>
+        {summonerName}
+        <h2>Troll 위험도</h2>
+        <ProgressBar bgcolor={"#6a1b9a"} completed={completed} opacity={1} />
+      </div>
+    </div>
   );
 };
 
 export default TrollSearchResult;
 
-const Container = styled.div`
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-`;
+const font = {
+  alignItems: "center",
+  justifyContent: "center",
+};
 
-const MidTable = styled.span`
-  width: 240px;
-  height: 124px;
-  display: table;
-  color: #879292;
-  position: relative;
-  background-color: #ffffff;
-  padding: 8px 0;
-`;
+const container = {
+  display: "flex",
+  width: "100%",
+  height: "100%",
+  alignItems: "center",
+  justifyContent: "center",
+  fontFamily: "Montserrat",
+};
 
-const Medal = styled.span`
-  display: table;
-  width: 104px;
-  height: 104px;
-  color: #879292;
-  position: relative;
-  background-color: #f2f2f2;
-`;
+const profile = {
+  position: "relative",
+  width: "100%",
+  margin: "0 auto",
+  padding: "20px 0 0 0",
+};
