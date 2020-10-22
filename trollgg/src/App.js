@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Rank from "./components/Rank";
 import Statistics from "./components/Statistics";
-import TrollSearchResult from "./components/TrollSearchResult";
+import TrollSearchResult from "./components/summoner_profile/TrollSearchResult";
 
 const App = (props) => {
   return (
