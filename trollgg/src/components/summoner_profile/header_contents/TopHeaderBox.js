@@ -1,18 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import ProgressBar from "../../../container/ProgressBar";
 import Emblem_Bronze from "../../../assets/ranked_emblems/Emblem_Bronze.png";
 import * as API from "../../../api/API";
 import * as Test from "../../test";
 const TopHeaderBox = (props) => {
-  const { summonerName, trollPercent } = props;
-  //   const summonerRes = API.getRiotSummoner({ summonerName });
-  //   console.log(JSON.parse(summonerRes));
-  //   console.log(leagueRes);
-  const leagueRes = JSON.parse(Test.leagueRes);
-  const summonerRes = JSON.parse(Test.summonerRes);
+  const { trollPercent, summonerRes, leagueRes, tier } = props;
+  console.log("헤더박스!!", summonerRes, leagueRes);
+  const summonerName = summonerRes.name;
   const profileIconId = summonerRes.profileIconId;
-  const tier = leagueRes.tier;
-
+  //  const tier = leagueRes.tier;
   const showResultMessage = (trollPercent) => {
     let color = "#0000ff";
     let resultMsg;
@@ -96,6 +92,7 @@ const TopHeaderBox = (props) => {
           src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${profileIconId}.jpg?image=q_auto&amp;v=1518361200`}
         ></img>
       </div>
+
       <div style={styles.progressBarContainer}>
         <div style={styles.name}>{summonerName}</div>
         <h2>Troll 위험도</h2>
@@ -107,3 +104,7 @@ const TopHeaderBox = (props) => {
 };
 
 export default TopHeaderBox;
+
+TopHeaderBox.defaultProps = {
+  tier: "",
+};
