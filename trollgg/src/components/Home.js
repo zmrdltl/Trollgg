@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import NoMatch from "./Statistics";
 import { Auth, URL_HEADER } from "../util/Auth";
 const Home = (props) => {
@@ -19,17 +18,19 @@ const Home = (props) => {
   };
 
   return (
-    <Container>
-      <TopImage
-        src="https://attach.s.op.gg/logo/20200610124936.f53f670b00d598130e25a1f1549a4a6f.png"
-        title="이즈리얼과 카이사"
-        alt="OP.GG Logo (이즈리얼과 카이사)"
-      ></TopImage>
+    <div style={styles.container}>
+      <div style={{ marginBottom: "40px" }}>
+        <img
+          style={styles.topImage}
+          src="https://attach.s.op.gg/logo/20200610124936.f53f670b00d598130e25a1f1549a4a6f.png"
+          title="이즈리얼과 카이사"
+          alt="OP.GG Logo (이즈리얼과 카이사)"
+        ></img>
+      </div>
 
-      <Title>TROLL.GG</Title>
-
-      <TopSpan>
-        <Input
+      <div style={styles.topSpan}>
+        <input
+          style={styles.input}
           placeholder="소환사 이름"
           value={summonerName}
           onChange={(e) => setSummonerName(e.target.value)}
@@ -37,53 +38,56 @@ const Home = (props) => {
           name="name"
         />
 
-        <Button
+        <button
+          style={styles.button}
           children={"검색"}
           color={"#464964"}
           background={"#e2e2e2"}
           onClick={() => moveToSummonerPage(summonerName)}
-        ></Button>
-      </TopSpan>
-    </Container>
+        ></button>
+      </div>
+    </div>
   );
 };
 export default Home;
 
-//속성을 주는 법 styled.(속성)
-const Container = styled.div`
-  background-size: cover;
-`;
+const styles = {
+  container: {
+    display: "flex",
+    width: "100%",
+    height: "500px",
+    justifyContent: "center",
+    alignItems: "center",
+    flexDirection: "column",
+    backgroundSize: "cover",
+  },
 
-const TopImage = styled.img`
-  display: block;
-  margin: 0px auto;
-`;
+  topImage: {
+    width: "1000px",
+    height: "300px",
+    display: "block",
+    justifyContent: "center",
+    alignItems: "center",
+    margin: "0px auto",
+  },
 
-const TopSpan = styled.span`
-  display: block;
-  margin: 0px auto;
-  justify-content: space-evenly;
-`;
+  topSpan: {
+    display: "block",
+  },
 
-const Input = styled.input`
-  display: block;
-  margin: 0px auto;
-  width: 624px;
-  height: 50px;
-  border: 3px solid green;
-`;
+  input: {
+    width: "624px",
+    height: " 50px",
+    marginRight: "10px",
+    border: " 3px solid green",
+  },
 
-const Title = styled.h1`
-  text-align: center;
-  font-size : 1rem,
-  text-color : '#ffffff',
-  fontWeight : 'bold',
-`;
-
-const Button = styled.button`
-  display: block;
-  margin: 0px auto;
-  border: none;
-  border-radius: 5px;
-  font-size: 15pt;
-`;
+  button: {
+    width: "70px",
+    height: "50px",
+    margin: "0px auto",
+    border: "none",
+    borderRadius: "5px",
+    fontSize: "15pt",
+  },
+};

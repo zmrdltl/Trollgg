@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import * as Test from "../../test";
 import axios from "axios";
 import { RIOT_API_KEY, RIOT_HEADER } from "../../../util/Auth";
+import * as API from "../../../api/API";
 const TierRaingBox = (props) => {
   //const [a, setA] = useState("");
-  const leagueRes = JSON.parse(Test.leagueRes);
+  const { leagueRes, tier } = props;
   const leagueId = leagueRes.leagueId;
-  const tier = leagueRes.tier;
   const rank = leagueRes.rank;
   const leaguePoints = leagueRes.leaguePoints;
   const wins = leagueRes.wins;
@@ -15,7 +15,6 @@ const TierRaingBox = (props) => {
   const leagueIdInfo = JSON.parse(Test.leagueIdInfo);
   const leagueName = leagueIdInfo.name;
   console.log(leagueIdInfo.name);
-
   const convertRankToNum = (rank) => {
     if ((rank = `I`)) return 1;
     if ((rank = `II`)) return 2;
@@ -59,7 +58,7 @@ const TierRaingBox = (props) => {
             <span>{`/ ${wins}승 `}</span>
             <span>{`${losses}패`}</span>
           </div>
-          <div>{`승률 ${parseInt((wins / (wins + losses)) * 100)}%`}</div>
+          <div>{`솔랭승률 ${parseInt((wins / (wins + losses)) * 100)}%`}</div>
           <div>{leagueName}</div>
         </div>
       </div>

@@ -15,87 +15,60 @@ const TrollSearchResult = ({ location, match }) => {
   const summonerName = query.name;
   const trollPercent = 50;
   const profileIcon = JSON.parse(Test.summonerRes).profileIcon;
-  const champList = API.getChampList();
-  console.log(champList);
-  // const [matchList, setMatchList] = useState([]);
-  // const [leagueRes, setLeagueRes] = useState("");
-  const [isLoaded, setIsLoded] = useState(true);
-  const summonerRes = JSON.parse(Test.summonerRes);
-  const leagueRes = JSON.parse(Test.leagueRes);
-  console.log(summonerRes);
-  console.log(leagueRes);
-  // useEffect(() => {
-  //   mineData();
-  // }, [isLoaded]);
+  const [isLoaded, setIsLoaded] = useState(1);
+  const [summonerRes, setSummonerRes] = useState({});
+  const [leagueRes, setLeagueRes] = useState({});
+  const [id, setId] = useState("");
+  const [matchList, setMatchList] = useState({});
+  const [tier, setTier] = useState("");
+  //const champList = API.getChampList();
+  //const summonerRes = JSON.parse(Test.summonerRes);
 
-  // const mineData = async () => {
-  //   const summonerRes = JSON.parse(Test.summonerRes);
-  //   const id = summonerRes.id;
-  //   console.log("summonerRes", summonerRes);
-  //   console.log("암호화된 summonerId", id);
-  //   const leagueRes = await API.getRiotLeague(id);
-  //   console.log(leagueRes);
-  //   //   console.log("MINING DATA!");
-  //   //   const matchRes = await API.getRiotMatchList(summonerName);
-  //   //   console.log(matchRes);
-  //   // const leagueRes = await API.getRiotLeague(summonerName);
-  //   // console.log(leagueRes);
-  //   // console.log(matchRes);
-  //   // const leagueData = JSON.parse(leagueRes.data);
-  //   // let latestTenMatch = JSON.parse(matchRes.data);
-  //   // //한게임에
-  //   // for (const i = 0; i < 10; i++) {
-  //   //   const matchinfo = new Array();
+  //const leagueRes = JSON.parse(Test.leagueRes);
 
-  //   //   //10명의 참여자
-  //   //   const matchRes = await axios.get(
-  //   //     urlHeader +
-  //   //       "/match/matches/participantIdentities?gameId=" +
-  //   //       latestTenMatch[i].gameId
-  //   //   );
+  useEffect(() => {
+    mineData();
+  }, [isLoaded]);
+  console.log("summonerRes", summonerRes);
+  console.log("암호화된 summonerId", id);
+  console.log("leagueRes", leagueRes);
+  //console.log("이 소환사의 모든 match", matchList);
 
-  //   //   const res = await axios.get(
-  //   //     urlHeader +
-  //   //       "/match/matches/participants?gameId=" +
-  //   //       latestTenMatch[i].gameId
-  //   //   );
-
-  //   //   const participants = JSON.parse(res.data);
-  //   //   matchRes = matchRes.data;
-  //   //   const matchDataJson = JSON.parse(matchRes);
-
-  //   //   for (const j = 0; j < 10; j++) {
-  //   //     let championId = participants[j].championId;
-  //   //     let participantId = participants[j].participantId;
-  //   //     let spell1Id = participants[j].spell1Id;
-  //   //     let spell2Id = participants[j].spell2Id;
-  //   //     matchinfo.push({
-  //   //       championId,
-  //   //       participantId,
-  //   //       spell1Id,
-  //   //       spell2Id,
-  //   //     });
-  //   //   }
-  //   //   setMatchList((matchList) => [...matchList, matchinfo]);
-  //   // }
-
-  //   //setLeagueRes(leagueRes);
-  // };
+  const mineData = async () => {
+    console.log("data 쫘아악 얻어오기 실행됨");
+    const summonerRes = await API.getRiotSummoner(summonerName);
+    let leagueRes = await API.getRiotLeague(summonerRes.id);
+    leagueRes = leagueRes[0];
+    // const matchList = await axios.get(
+    //   `https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/-Yug45lMcljdMo4knm_9Pp28YpbK6t9DR-NKLbGVhYeO?api_key=RGAPI-c5c7eaa5-0cd3-401d-a9e0-8f3b564d4a9a`
+    // );
+    //setMatchList(matchList);
+    setTier(leagueRes.tier);
+    setSummonerRes(summonerRes);
+    setId(summonerRes.id);
+    setLeagueRes(leagueRes);
+  };
 
   return (
     <div style={styles.container}>
-      {Test.summonerRes.length === 0 ? (
+      {Test.summonerRes.length === 0 || summonerName.length === 0 ? (
         <h1>등록된 유저가 없습니다. </h1>
       ) : (
         <div>
           <TopHeaderBox
-            summonerName={summonerName}
+            summonerRes={summonerRes}
+            leagueRes={leagueRes}
             trollPercent={trollPercent}
+            tier={tier}
             // leagueRes={leagueRes}
           />
 
           <div style={styles.content}>
-            <SideContents />
+            <SideContents
+              summonerRes={summonerRes}
+              leagueRes={leagueRes}
+              tier={tier}
+            />
             <MainContents />
           </div>
         </div>
