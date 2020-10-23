@@ -2,7 +2,7 @@ import React from "react";
 import * as fetch from "./fetch";
 
 const apiUrl =
-  "ec2-52-78-119-98.ap-northeast-2.compute.amazonaws.com:4000/api/";
+  "http://ec2-52-78-119-98.ap-northeast-2.compute.amazonaws.com:4000/api/";
 
 export const getChampList = () => {
   const url = `https://ddragon.leagueoflegends.com/cdn/10.9.1/data/ko_KR/champion.json`;

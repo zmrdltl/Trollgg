@@ -17,15 +17,19 @@ export const getServer = async (url, data) => {
   if (data === undefined) data = null;
   try {
     url = url + "?" + bodyEncoder(data);
-    var res = await fetch(url, {
+    const proxyurl = "https://cors-anywhere.herokuapp.com/"; //cors policy proxy server로 우회
+    const res = fetch(proxyurl + url, {
       method: "GET",
       headers: {
         Accept: HEADER_APPJSON,
         "Content-Type": HEADER_WWWENCODED,
       },
-    });
+    }) // https://cors-anywhere.herokuapp.com/https://example.com
+      .then((response) => response.text())
+      .catch(() =>
+        console.log("Can’t access " + url + " response. Blocked by browser?")
+      );
     if (res.ok) return res;
-    console.log(await res.json());
     return null;
   } catch (e) {
     console.log("get" + e);

@@ -11,7 +11,7 @@ const ProgressBar = (props) => {
         setCompleted(completed + 1);
       }, 5);
     }
-  }, [completed]);
+  }, [completed, trollPercent]);
 
   const styles = {
     container: {

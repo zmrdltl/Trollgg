@@ -16,8 +16,6 @@ import { URL_HEADER, RIOT_HEADER } from "../util/Auth";
 const Navigation = (props) => {
   const [summonerName, setSummonerName] = useState("");
 
-  console.log(props);
-
   const moveToSummonerPage = (summonerName) => {
     document.location.href = `/TrollSearchResult?name=${summonerName}`;
   };
