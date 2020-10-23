@@ -13,8 +13,10 @@ import * as Test from "./test";
 const TrollSearchResult = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
-  const trollPercent = 70;
+  const trollPercent = 50;
   const profileIcon = JSON.parse(Test.summonerRes).profileIcon;
+  const champList = API.getChampList();
+  console.log(champList);
   // const [matchList, setMatchList] = useState([]);
   // const [leagueRes, setLeagueRes] = useState("");
   const [isLoaded, setIsLoded] = useState(true);
