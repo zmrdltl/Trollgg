@@ -18,18 +18,15 @@ export const getServer = async (url, data) => {
   try {
     url = url + "?" + bodyEncoder(data);
     const proxyurl = "https://cors-anywhere.herokuapp.com/"; //cors policy proxy server로 우회
-    const res = fetch(proxyurl + url, {
-      method: "GET",
-      headers: {
-        Accept: HEADER_APPJSON,
-        "Content-Type": HEADER_WWWENCODED,
-      },
-    }) // https://cors-anywhere.herokuapp.com/https://example.com
-      .then((response) => response.text())
+    const res = await fetch(proxyurl + url) // https://cors-anywhere.herokuapp.com/https://example.com
+      .then((res) => res.text())
       .catch(() =>
         console.log("Can’t access " + url + " response. Blocked by browser?")
       );
+    console.log("server!", res);
+    console.log("SERVER IS OK", res.status);
     if (res.ok) return res;
+
     return null;
   } catch (e) {
     console.log("get" + e);
