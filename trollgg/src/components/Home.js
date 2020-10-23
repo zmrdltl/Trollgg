@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import About from "./Rank";
 import NoMatch from "./Statistics";
 import { Auth, URL_HEADER } from "../util/Auth";
 const Home = (props) => {
