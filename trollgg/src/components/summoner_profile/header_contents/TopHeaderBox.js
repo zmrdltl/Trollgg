@@ -85,7 +85,7 @@ const TopHeaderBox = (props) => {
       top: "100%",
       left: "50%",
       marginTop: "-28px",
-      marginLeft: "-30px",
+      marginLeft: "-32px",
       width: "44px",
       height: "24px",
       paddingTop: "3px",
