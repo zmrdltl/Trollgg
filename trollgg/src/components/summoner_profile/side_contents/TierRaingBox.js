@@ -45,6 +45,7 @@ const TierRaingBox = (props) => {
             width="104px"
             height="104px"
             style={{ margin: "-5px 0 -10px" }}
+            alt="티어사진"
           ></img>
         </div>
 
