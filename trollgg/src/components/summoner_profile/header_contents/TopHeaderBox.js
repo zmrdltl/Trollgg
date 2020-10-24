@@ -1,13 +1,11 @@
-import React, { useState } from "react";
+import React from "react";
 import ProgressBar from "../../../container/ProgressBar";
-import Emblem_Bronze from "../../../assets/ranked_emblems/Emblem_Bronze.png";
-import * as API from "../../../api/API";
-import * as Test from "../../test";
 const TopHeaderBox = (props) => {
   const { trollPercent, summonerRes, leagueRes, tier } = props;
-  console.log("헤더박스!!", summonerRes, leagueRes);
   const summonerName = summonerRes.name;
+  const summonerLevel = summonerRes.summonerLevel;
   const profileIconId = summonerRes.profileIconId;
+  console.log("헤더박스!!", summonerRes, leagueRes);
   //  const tier = leagueRes.tier;
   const showResultMessage = (trollPercent) => {
     let color = "#0000ff";
@@ -65,13 +63,8 @@ const TopHeaderBox = (props) => {
       height: "120px",
       width: "120px",
     },
-    profileImage: {
-      display: "block",
-      width: "100px",
-      height: "100px",
-      border: 0,
-    },
-    borderImage: {
+
+    profileBorderImage: {
       backgroundImage: `url(https://opgg-static.akamaized.net/images/borders2/${tier.toLowerCase()}.png)`,
       position: "absolute",
       left: "-10px",
@@ -81,16 +74,41 @@ const TopHeaderBox = (props) => {
       backgroundPosition: "center bottom",
       backgroundRepeat: "no-repeat",
     },
+    profileImage: {
+      display: "block",
+      width: "100px",
+      height: "100px",
+      border: 0,
+    },
+    profileIconBelow: {
+      position: "absolute",
+      top: "100%",
+      left: "50%",
+      marginTop: "-28px",
+      marginLeft: "-30px",
+      width: "44px",
+      height: "24px",
+      paddingTop: "3px",
+      boxSizing: "border-box",
+      background: `url(https://opgg-static.akamaized.net/images/site/summoner/bg-levelbox.png)`,
+      backgroundSize: "100%",
+      lineHeight: "17px",
+      fontSize: " 14px",
+      textAlign: "center",
+      color: "#eabd56",
+    },
   };
 
   return (
     <div style={styles.topView}>
       <div style={styles.profile}>
-        <div style={styles.borderImage}></div>
+        <div style={styles.profileBorderImage}></div>
         <img
           style={styles.profileImage}
           src={`https://opgg-static.akamaized.net/images/profile_icons/profileIcon${profileIconId}.jpg?image=q_auto&amp;v=1518361200`}
+          alt={"프로필사진"}
         ></img>
+        <div style={styles.profileIconBelow}>{summonerLevel}</div>
       </div>
 
       <div style={styles.progressBarContainer}>
@@ -104,7 +122,3 @@ const TopHeaderBox = (props) => {
 };
 
 export default TopHeaderBox;
-
-TopHeaderBox.defaultProps = {
-  tier: "",
-};

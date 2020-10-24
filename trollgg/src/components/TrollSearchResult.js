@@ -14,25 +14,18 @@ const TrollSearchResult = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
   const trollPercent = 50;
-  const profileIcon = JSON.parse(Test.summonerRes).profileIcon;
   const [isLoaded, setIsLoaded] = useState(1);
   const [summonerRes, setSummonerRes] = useState({});
   const [leagueRes, setLeagueRes] = useState({});
   const [id, setId] = useState("");
   const [matchList, setMatchList] = useState({});
   const [tier, setTier] = useState("");
-  //const champList = API.getChampList();
-  //const summonerRes = JSON.parse(Test.summonerRes);
 
-  //const leagueRes = JSON.parse(Test.leagueRes);
-
-  useEffect(() => {
-    mineData();
-  }, [isLoaded]);
-  console.log("summonerRes", summonerRes);
-  console.log("암호화된 summonerId", id);
-  console.log("leagueRes", leagueRes);
-  //console.log("이 소환사의 모든 match", matchList);
+  //TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+  // const summonerRes = Test.summonerRes;
+  // const leagueRes = Test.leagueRes;
+  // const id = Test.summonerRes.id;
+  //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   const mineData = async () => {
     console.log("data 쫘아악 얻어오기 실행됨");
@@ -48,10 +41,19 @@ const TrollSearchResult = ({ location, match }) => {
     setId(summonerRes.id);
     setLeagueRes(leagueRes);
   };
+  useEffect(() => {
+    mineData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLoaded]);
+
+  console.log("summonerRes", summonerRes);
+  console.log("암호화된 summonerId", id);
+  console.log("leagueRes", leagueRes);
+  //console.log("이 소환사의 모든 match", matchList);
 
   return (
     <div style={styles.container}>
-      {Test.summonerRes.length === 0 || summonerName.length === 0 ? (
+      {summonerRes.length === 0 || summonerName.length === 0 ? (
         <h1>등록된 유저가 없습니다. </h1>
       ) : (
         <div>
@@ -69,7 +71,7 @@ const TrollSearchResult = ({ location, match }) => {
               leagueRes={leagueRes}
               tier={tier}
             />
-            <MainContents />
+            <MainContents summonerRes={summonerRes} leagueRes={leagueRes} />
           </div>
         </div>
       )}
@@ -93,6 +95,5 @@ const styles = {
     width: "1000px",
     minHeight: "500px",
     margin: "0 auto",
-    marginTop: "10px",
   },
 };
