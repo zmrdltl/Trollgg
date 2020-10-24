@@ -10,8 +10,8 @@ const Home = (props) => {
   };
 
   const handleKeyPress = (e) => {
-    e.preventDefault();
     console.log("눌림");
+    console.log("sef", summonerName);
     if (e.key === "Enter") {
       moveToSummonerPage(e.target.value);
     }
@@ -31,7 +31,7 @@ const Home = (props) => {
       <div style={styles.topSpan}>
         <input
           style={styles.input}
-          placeholder="소환사 이름"
+          placeholder=" 소환사 이름"
           value={summonerName}
           onChange={(e) => setSummonerName(e.target.value)}
           onKeyPress={(e) => handleKeyPress(e)}

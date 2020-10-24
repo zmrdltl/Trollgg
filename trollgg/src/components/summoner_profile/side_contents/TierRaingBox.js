@@ -12,7 +12,7 @@ const TierRaingBox = (props) => {
   const wins = leagueRes.wins;
   const losses = leagueRes.losses;
 
-  const leagueIdInfo = JSON.parse(Test.leagueIdInfo);
+  const leagueIdInfo = Test.leagueIdInfo;
   const leagueName = leagueIdInfo.name;
   console.log(leagueIdInfo.name);
   const convertRankToNum = (rank) => {

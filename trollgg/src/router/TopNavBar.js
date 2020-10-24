@@ -15,13 +15,11 @@ import { URL_HEADER, RIOT_HEADER } from "../util/Auth";
 
 const Navigation = (props) => {
   const [summonerName, setSummonerName] = useState("");
-
   const moveToSummonerPage = (summonerName) => {
     document.location.href = `/TrollSearchResult?name=${summonerName}`;
   };
 
   const handleKeyPress = (e) => {
-    e.preventDefault();
     if (e.key === "Enter") {
       moveToSummonerPage(e.target.value);
     }
