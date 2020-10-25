@@ -5,7 +5,7 @@ import { BrowserRouter as Router, Link, Route, Switch } from "react-router-dom";
 import Home from "./components/Home";
 import Rank from "./components/Rank";
 import Statistics from "./components/Statistics";
-import TrollSearchResult from "./components/TrollSearchResult";
+import Result from "./components/Result";
 
 const App = (props) => {
   return (
@@ -23,8 +23,8 @@ const App = (props) => {
       </Router>
 
       <Switch>
-        <Route path="/TrollSearchResult" component={TrollSearchResult} />
-        <Route path="/TrollSearchResult/:name" component={TrollSearchResult} />
+        <Route path="/Result" component={Result} />
+        <Route path="/Result/:name" component={Result} />
       </Switch>
     </Container>
   );

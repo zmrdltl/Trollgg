@@ -3,9 +3,10 @@ import Box1 from "./Box1";
 import Box2 from "./Box2";
 import Box3 from "./Box3";
 const GameStatsBox = (props) => {
+  const { match20GameInfoRes, summonerRes } = props;
   return (
     <div style={styles.container}>
-      <Box1 />
+      <Box1 match20GameInfoRes={match20GameInfoRes} summonerRes={summonerRes} />
       <Box2 />
       <Box3 />
     </div>
