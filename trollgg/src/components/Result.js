@@ -10,47 +10,93 @@ import * as Test from "./test";
 //queueType: "RANKED_SOLO_5x5"
 //rank: "로마숫자"
 //encryptedSummornerId-> summonerId: "EuBfqKp2DfCRLTUqZlyD3oq25KWG5TJEAh0osQE6QtrVRA"
-const TrollSearchResult = ({ location, match }) => {
+const getMatch20Res = (matchListRes) => {
+  const match20Res = [];
+  let cnt = 0;
+  for (let i = 0; i < matchListRes.matches.length; i++) {
+    if (matchListRes.matches[i].queue === 420) {
+      match20Res.push(matchListRes.matches[i]);
+      cnt += 1;
+    }
+    if (cnt === 20) return match20Res;
+  }
+  return match20Res;
+};
+const get20ResGameInfoRes = async (match20Res) => {
+  const match20GameInfo = [];
+
+  for (let i = 0; i < match20Res.length; i++) {
+    match20GameInfo[i] = await API.getRiotMatch(match20Res[i].gameId);
+  }
+  return match20GameInfo;
+};
+
+const Result = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
   const trollPercent = 50;
   const [isLoaded, setIsLoaded] = useState(1);
   const [summonerRes, setSummonerRes] = useState({});
   const [leagueRes, setLeagueRes] = useState({});
+  const [leaguesRes, setLeaguesRes] = useState({});
+  const [leagueName, setLeagueName] = useState("");
   const [id, setId] = useState("");
-  const [matchList, setMatchList] = useState({});
   const [tier, setTier] = useState("");
+  const [match20Res, setMatch20Res] = useState([]);
+  // const [match20GameInfoRes, setMatch20GameInfoRes] = useState([]);
+  //const [matchListRes, setMatchListRes] = useState({});
 
   //TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // const summonerRes = Test.summonerRes;
   // const leagueRes = Test.leagueRes;
   // const id = Test.summonerRes.id;
+  //const matchListRes = Test.matchListRes;
+  const match20GameInfoRes = Test.match20GameInfoRes;
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
 
   const mineData = async () => {
     console.log("data 쫘아악 얻어오기 실행됨");
     const summonerRes = await API.getRiotSummoner(summonerName);
+    console.log("제 어카운트 아뒤", summonerRes.accountId);
+    // const matchListRes = await API.getRiotMatchList({
+    //   accountId: summonerRes.accountId,
+    //   queue: 420,
+    //   season: 13,
+    //   beginIndex: 0,
+    //   endIndex: 100,
+    // });
     let leagueRes = await API.getRiotLeague(summonerRes.id);
     leagueRes = leagueRes[0];
+    let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
     // const matchList = await axios.get(
     //   `https://kr.api.riotgames.com/lol/match/v4/matchlists/by-account/-Yug45lMcljdMo4knm_9Pp28YpbK6t9DR-NKLbGVhYeO?api_key=RGAPI-c5c7eaa5-0cd3-401d-a9e0-8f3b564d4a9a`
     // );
     //setMatchList(matchList);
+    const matchListRes = Test.matchListRes;
+    const match20Res = getMatch20Res(matchListRes);
+
+    //const match20GameInfoRes = get20ResGameInfoRes(match20Res);
     setTier(leagueRes.tier);
     setSummonerRes(summonerRes);
     setId(summonerRes.id);
     setLeagueRes(leagueRes);
+    setLeaguesRes(leaguesRes);
+    setMatch20Res(match20Res);
+    //setMatch20GameInfoRes(match20GameInfoRes);
   };
   useEffect(() => {
     mineData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLoaded]);
 
-  console.log("summonerRes", summonerRes);
-  console.log("암호화된 summonerId", id);
-  console.log("leagueRes", leagueRes);
+  // console.log("summonerRes", summonerRes);
+  // console.log("암호화된 summonerId", id);
+  // console.log("leagueRes", leagueRes);
+  console.log("솔로랭크 최근 최대 20경기 목록", match20Res);
+  // console.log("소환사 속한 리그정보", leaguesRes);
+  // console.log("소환사 속한 리그이름", leaguesRes.name);
   //console.log("이 소환사의 모든 match", matchList);
-
+  // console.log("한 게임당 자세한 정보", match20GameInfoRes);
   return (
     <div style={styles.container}>
       {summonerRes.length === 0 || summonerName.length === 0 ? (
@@ -70,8 +116,13 @@ const TrollSearchResult = ({ location, match }) => {
               summonerRes={summonerRes}
               leagueRes={leagueRes}
               tier={tier}
+              leagueName={leaguesRes.name}
             />
-            <MainContents summonerRes={summonerRes} leagueRes={leagueRes} />
+            <MainContents
+              summonerRes={summonerRes}
+              leagueRes={leagueRes}
+              match20GameInfoRes={match20GameInfoRes}
+            />
           </div>
         </div>
       )}
@@ -79,7 +130,7 @@ const TrollSearchResult = ({ location, match }) => {
   );
 };
 
-export default TrollSearchResult;
+export default Result;
 
 const styles = {
   container: {

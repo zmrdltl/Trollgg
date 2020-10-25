@@ -1,8 +1,9 @@
 import React from "react";
 import * as fetch from "./fetch";
 
-const apiUrl =
-  "http://ec2-52-78-119-98.ap-northeast-2.compute.amazonaws.com:4000/api/";
+// const apiUrl =
+//   "http://ec2-52-78-119-98.ap-northeast-2.compute.amazonaws.com:4000/api/";
+const apiUrl = "http://localhost:4000/api/";
 
 export const getChampList = () => {
   const url = `https://ddragon.leagueoflegends.com/cdn/10.9.1/data/ko_KR/champion.json`;
@@ -45,7 +46,7 @@ export const getRiotMatchList = (data) => {
 };
 
 export const getRiotMatch = (data) => {
-  const url = `${apiUrl}match/riotMatches`;
+  const url = `${apiUrl}match/riotMatches?gameId=`;
   return fetch
     .getServer(url, data)
     .then((res) => JSON.parse(res))
@@ -62,6 +63,14 @@ export const getRiotTimelines = (data) => {
 
 export const getLeague = (data) => {
   const url = `${apiUrl}user/league`;
+  return fetch
+    .getServer(url, data)
+    .then((res) => JSON.parse(res))
+    .catch((err) => ({ err }));
+};
+
+export const getRiotLeagues = (data) => {
+  const url = `${apiUrl}user/riotLeagues?leagueId=`;
   return fetch
     .getServer(url, data)
     .then((res) => JSON.parse(res))

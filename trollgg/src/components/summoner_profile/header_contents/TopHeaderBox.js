@@ -5,7 +5,6 @@ const TopHeaderBox = (props) => {
   const summonerName = summonerRes.name;
   const summonerLevel = summonerRes.summonerLevel;
   const profileIconId = summonerRes.profileIconId;
-  console.log("헤더박스!!", summonerRes, leagueRes);
   //  const tier = leagueRes.tier;
   const showResultMessage = (trollPercent) => {
     let color = "#0000ff";

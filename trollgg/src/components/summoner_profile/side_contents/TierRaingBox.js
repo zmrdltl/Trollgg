@@ -5,16 +5,16 @@ import { RIOT_API_KEY, RIOT_HEADER } from "../../../util/Auth";
 import * as API from "../../../api/API";
 const TierRaingBox = (props) => {
   //const [a, setA] = useState("");
-  const { leagueRes, tier } = props;
+  const { leagueRes, tier, leagueName } = props;
   const leagueId = leagueRes.leagueId;
   const rank = leagueRes.rank;
   const leaguePoints = leagueRes.leaguePoints;
   const wins = leagueRes.wins;
   const losses = leagueRes.losses;
 
-  const leagueIdInfo = Test.leagueIdInfo;
-  const leagueName = leagueIdInfo.name;
-  console.log(leagueIdInfo.name);
+  // const leagueIdInfo = Test.leagueIdInfo;
+  // const leagueName = leagueIdInfo.name;
+  // console.log(leagueIdInfo.name);
   const convertRankToNum = (rank) => {
     if ((rank = `I`)) return 1;
     if ((rank = `II`)) return 2;
