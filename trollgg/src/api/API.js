@@ -38,9 +38,9 @@ export const getRiotLeague = (data) => {
 };
 
 export const getRiotMatchList = (data) => {
-  const url = `${apiUrl}user/riotMatchlist`;
+  const url = `${apiUrl}user/riotMatchlist?`;
   return fetch
-    .getServer(url, data)
+    .getServerForMatchList(url, data)
     .then((res) => JSON.parse(res))
     .catch((err) => ({ err }));
 };
