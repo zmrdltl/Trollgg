@@ -56,7 +56,6 @@ const Result = ({ location, match }) => {
     leagueRes = leagueRes[0];
     let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
     const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
-    console.log("?????", match20GameInfoRes);
     setTier(leagueRes.tier);
     setSummonerRes(summonerRes);
     setId(summonerRes.id);
@@ -73,11 +72,11 @@ const Result = ({ location, match }) => {
   // console.log("summonerRes", summonerRes);
   // console.log("암호화된 summonerId", id);
   // console.log("leagueRes", leagueRes);
-  console.log("솔로랭크 최근 최대 20경기 목록", matchListRes);
+  //console.log("솔로랭크 최근 최대 20경기 목록", matchListRes);
   // console.log("소환사 속한 리그정보", leaguesRes);
   // console.log("소환사 속한 리그이름", leaguesRes.name);
   //console.log("이 소환사의 모든 match", matchList);
-  console.log("한 게임당 자세한 정보", match20GameInfoRes);
+  //console.log("한 게임당 자세한 정보", match20GameInfoRes);
   return (
     <div style={styles.container}>
       {summonerRes.length === 0 || summonerName.length === 0 ? (
