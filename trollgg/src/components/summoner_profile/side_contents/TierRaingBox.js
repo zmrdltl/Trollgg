@@ -59,7 +59,9 @@ const TierRaingBox = (props) => {
             <span>{`/ ${wins}승 `}</span>
             <span>{`${losses}패`}</span>
           </div>
-          <div>{`솔랭승률 ${parseInt((wins / (wins + losses)) * 100)}%`}</div>
+          <div>{`솔랭승률 ${parseInt(
+            Math.round((wins / (wins + losses)) * 100)
+          )}%`}</div>
           <div>{leagueName}</div>
         </div>
       </div>

@@ -1,19 +1,14 @@
 import React, { useState } from "react";
-import NoMatch from "./Statistics";
-import { Auth, URL_HEADER } from "../util/Auth";
-const Home = (props) => {
-  console.log("난 home이야");
+const Home = () => {
   const [summonerName, setSummonerName] = useState("");
 
-  const moveToSummonerPage = (summonerName) => {
+  const moveToResultPage = (summonerName) => {
     document.location.href = `/Result?name=${summonerName}`;
   };
 
   const handleKeyPress = (e) => {
-    console.log("눌림");
-    console.log("sef", summonerName);
     if (e.key === "Enter") {
-      moveToSummonerPage(e.target.value);
+      moveToResultPage(e.target.value);
     }
   };
 
@@ -43,7 +38,7 @@ const Home = (props) => {
           children={"검색"}
           color={"#464964"}
           background={"#e2e2e2"}
-          onClick={() => moveToSummonerPage(summonerName)}
+          onClick={() => moveToResultPage(summonerName)}
         ></button>
       </div>
     </div>

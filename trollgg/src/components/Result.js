@@ -33,7 +33,6 @@ const Result = ({ location, match }) => {
   const [tier, setTier] = useState("");
   const [match20GameInfoRes, setMatch20GameInfoRes] = useState([]);
   const [matchListRes, setMatchListRes] = useState({});
-
   //TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // const summonerRes = Test.summonerRes;
   // const leagueRes = Test.leagueRes;
