@@ -4,6 +4,7 @@ import { CircleProgress } from "react-gradient-progress";
 
 const getInfoPerGame = (match20GameInfoRes, summonerName) => {
   const infoPerGame = [];
+
   for (let i = 0; i < match20GameInfoRes.length; i++) {
     const oneGame = match20GameInfoRes[i];
     for (let j = 0; j < 10; j++) {
@@ -12,7 +13,7 @@ const getInfoPerGame = (match20GameInfoRes, summonerName) => {
       const kills = oneGame.participants[j].stats.kills;
       const assists = oneGame.participants[j].stats.assists;
       const deaths = oneGame.participants[j].stats.deaths;
-
+      const championId = oneGame.participants[j].championId;
       if (
         oneGame.participantIdentities[j].player.summonerName === summonerName
       ) {
@@ -22,6 +23,7 @@ const getInfoPerGame = (match20GameInfoRes, summonerName) => {
           kills: kills,
           deaths: deaths,
           assists: assists,
+          championId: championId,
         };
 
         infoPerGame.push(obj);

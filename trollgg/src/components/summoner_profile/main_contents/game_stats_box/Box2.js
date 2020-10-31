@@ -1,15 +1,15 @@
 import React from "react";
-import * as Test from "../../../test";
+import * as Index from "../../../../assets/index";
+
+const getChamp = (infoPerGame) => {
+  for (let i = 0; i < infoPerGame.length; i++) {
+    const champId = infoPerGame[i].champId;
+  }
+};
 
 const getInfoPerGame = (match20GameInfoRes, summonerName) => {
   const infoPerGame = [];
-  const d = () => {
-    a = Array(3, 0);
-    console.log(Array);
-    return map((v, i) => {
-      console.log;
-    });
-  };
+
   for (let i = 0; i < match20GameInfoRes.length; i++) {
     const oneGame = match20GameInfoRes[i];
     for (let j = 0; j < 10; j++) {
@@ -18,7 +18,7 @@ const getInfoPerGame = (match20GameInfoRes, summonerName) => {
       const kills = oneGame.participants[j].stats.kills;
       const assists = oneGame.participants[j].stats.assists;
       const deaths = oneGame.participants[j].stats.deaths;
-
+      const championId = oneGame.participants[j].championId;
       if (
         oneGame.participantIdentities[j].player.summonerName === summonerName
       ) {
@@ -28,6 +28,7 @@ const getInfoPerGame = (match20GameInfoRes, summonerName) => {
           kills: kills,
           deaths: deaths,
           assists: assists,
+          championId: championId,
         };
 
         infoPerGame.push(obj);
@@ -41,6 +42,8 @@ const getInfoPerGame = (match20GameInfoRes, summonerName) => {
 
 const Box2 = (props) => {
   const { match20GameInfoRes, summonerRes } = props;
+  const champList = Index.champList;
+  console.log("챔피언 리스트", champList);
   console.log("BOX2", match20GameInfoRes, summonerRes);
   return (
     <div style={styles.container}>
