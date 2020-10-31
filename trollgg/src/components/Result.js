@@ -20,10 +20,17 @@ const get20ResGameInfoRes = async (matchListRes) => {
   return match20GameInfo;
 };
 
+const getSoloRankLeagueRes = (leagueRes) => {
+  for (let i = 0; i < leagueRes.length; i++) {
+    if (leagueRes[i].queueType === "RANKED_SOLO_5x5") {
+      return leagueRes[i];
+    }
+  }
+};
 const Result = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
-  const trollPercent = 50;
+  const trollPercent = 30;
   const [isLoaded, setIsLoaded] = useState(1);
   const [summonerRes, setSummonerRes] = useState({});
   const [leagueRes, setLeagueRes] = useState({});
@@ -52,7 +59,7 @@ const Result = ({ location, match }) => {
       endIndex: 20,
     });
     let leagueRes = await API.getRiotLeague(summonerRes.id);
-    leagueRes = leagueRes[0];
+    leagueRes = getSoloRankLeagueRes(leagueRes);
     let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
     const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
     setTier(leagueRes.tier);
@@ -70,7 +77,7 @@ const Result = ({ location, match }) => {
 
   // console.log("summonerRes", summonerRes);
   // console.log("암호화된 summonerId", id);
-  // console.log("leagueRes", leagueRes);
+  console.log("leagueRes", leagueRes);
   //console.log("솔로랭크 최근 최대 20경기 목록", matchListRes);
   // console.log("소환사 속한 리그정보", leaguesRes);
   // console.log("소환사 속한 리그이름", leaguesRes.name);
