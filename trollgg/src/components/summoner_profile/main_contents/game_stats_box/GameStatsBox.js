@@ -33,7 +33,7 @@ const getInfoPerGame = (match20GameInfoRes, summonerName) => {
   return infoPerGame;
 };
 const GameStatsBox = (props) => {
-  const { match20GameInfoRes, summonerRes, infoPerGame } = props;
+  const { match20GameInfoRes, summonerRes, infoPerGame, leagueRes } = props;
   console.log("gameStatsBox", infoPerGame);
   return (
     <div style={styles.container}>
@@ -41,7 +41,11 @@ const GameStatsBox = (props) => {
       <div style={styles.verticalLine} />
       <Box2 match20GameInfoRes={match20GameInfoRes} summonerRes={summonerRes} />
       <div style={styles.verticalLine} />
-      <Box3 match20GameInfoRes={match20GameInfoRes} summonerRes={summonerRes} />
+      <Box3
+        match20GameInfoRes={match20GameInfoRes}
+        summonerRes={summonerRes}
+        leagueRes={leagueRes}
+      />
     </div>
   );
 };

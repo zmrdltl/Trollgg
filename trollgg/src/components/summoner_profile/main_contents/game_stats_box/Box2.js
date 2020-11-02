@@ -82,6 +82,7 @@ const showStats = (champ3Info) => {
       const KDAFont = getKDAFont(KDA);
       statList.push(
         <div
+          key={idx}
           style={{
             display: "flex",
             justifyContent: "center",
@@ -100,6 +101,7 @@ const showStats = (champ3Info) => {
           >
             <img
               style={{ borderRadius: "50%" }}
+              alt="챔피언사진"
               src={`https://opgg-static.akamaized.net/images/lol/champion/${champ3Info[i].enChampName}.png?image=q_auto,w_30&v=1603864069`}
             ></img>
           </div>
@@ -120,7 +122,7 @@ const showStats = (champ3Info) => {
     }
     return statList;
   };
-  return <div>{makeStats().map((a) => a)}</div>;
+  return <div>{makeStats().map((val) => val)}</div>;
 };
 
 const getChamp3Info = (infoPerGame) => {
