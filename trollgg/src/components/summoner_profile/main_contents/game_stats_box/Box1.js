@@ -151,7 +151,7 @@ const Box1 = (props) => {
             percentage={winRate}
             primaryColor={["#00BBFF", "#92d7f1"]}
             secondaryColor={"#ff0000"}
-            strokeWidth={7.5}
+            strokeWidth={9}
           />
         </div>
       </div>
@@ -206,7 +206,7 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    width: "120px",
+    width: "105px",
     height: "108px",
   },
   text: {
