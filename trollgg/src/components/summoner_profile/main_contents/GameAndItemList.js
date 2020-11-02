@@ -1,7 +1,15 @@
 import React from "react";
 const GameAndItemList = (props) => {
   return (
-    <div style={styles.container}>내가 아이템이랑 게임 경기 가진 리스트야!</div>
+    <div style={styles.container}>
+      내가 아이템이랑 게임 경기 가진 리스트야!
+      <img
+        src="/src/assets/ranked_positions/BRONZE_BOTTOM.png"
+        height="100px"
+        width="100px"
+        alt="사진"
+      ></img>
+    </div>
   );
 };
 

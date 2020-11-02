@@ -38,10 +38,6 @@ const MainContents = (props) => {
   const { summonerRes, leagueRes, match20GameInfoRes } = props;
   const [infoPerGame, setInfoPerGame] = useState([]);
   const summonerName = summonerRes.name;
-  const mineData = () => {
-    const infoPerGame = getInfoPerGame(match20GameInfoRes, summonerName);
-    setInfoPerGame(infoPerGame);
-  };
   useEffect(() => {
     const infoPerGame = getInfoPerGame(match20GameInfoRes, summonerName);
     setInfoPerGame(infoPerGame);
@@ -61,6 +57,7 @@ const MainContents = (props) => {
       <GameStatsBox
         match20GameInfoRes={match20GameInfoRes}
         summonerRes={summonerRes}
+        leagueRes={leagueRes}
       />
       <GameAndItemList />
     </div>

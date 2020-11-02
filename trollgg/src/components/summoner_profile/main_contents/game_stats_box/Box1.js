@@ -196,8 +196,8 @@ const styles = {
   },
   graph: {
     position: "relative",
-    width: "90px",
-    height: "90px",
+    width: "90",
+    height: "90",
     overflow: "hidden",
     textAlign: "left",
     lineHeight: "normal",
