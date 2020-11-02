@@ -206,6 +206,8 @@ const styles = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
+    width: "120px",
+    height: "108px",
   },
   text: {
     display: "block",
