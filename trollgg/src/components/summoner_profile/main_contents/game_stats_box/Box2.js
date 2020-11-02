@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import * as Index from "../../../../assets/index";
 
-//67% (4승 2패) 3.92 평점
 const setChampInfoPerGame = (obj, champList) => {
   const championId = obj.championId;
   for (let champName in champList.data) {
@@ -46,6 +45,7 @@ const getInfoPerGame = (match20GameInfoRes, summonerName, champList) => {
   }
   return infoPerGame;
 };
+
 const showStats = (champ3Info) => {
   const getWinFont = (winRate) => {
     if (0 <= winRate && winRate < 60) {
@@ -54,19 +54,22 @@ const showStats = (champ3Info) => {
     return "#c6443e";
   };
   const getKDAFont = (kda) => {
-    if (0 <= kda && kda < 3.0) {
-      return "#333333";
-    } else if (3.0 <= kda && kda < 4) {
-      return "#2daf7f";
-    } else if (4.0 <= kda && kda < 6) {
-      return "#1f8ecd";
+    if (0 <= kda && kda < 3) {
+      return "#333333"; //검
+    } else if (3 <= kda && kda < 4) {
+      return "#2daf7f"; //초
+    } else if (4 <= kda && kda < 5) {
+      return "#1f8ecd"; //파
     } else {
-      return "#e19205";
+      return "#e19205"; //노
     }
   };
   const makeStats = () => {
     const statList = [];
+    let idx = 0;
     for (let i = 0; i < champ3Info.length; i++) {
+      idx += 1;
+      if (idx === 4) break;
       const champName = champ3Info[i].koChampName;
       const kills = champ3Info[i].kills;
       const deaths = champ3Info[i].deaths ? champ3Info[i].deaths : 1;
@@ -155,8 +158,20 @@ const getChamp3Info = (infoPerGame) => {
   playedChamp.forEach((value) => {
     champ3Info.push(value);
   });
+  champ3Info.sort((a, b) => {
+    if (a.played === b.played) {
+      if (a.win === b.win) {
+        const aKDA = Math.round(((a.kills + a.assists) / a.deaths) * 100) / 100;
+        const bKDA = Math.round(((b.kills + b.assists) / b.deaths) * 100) / 100;
+        return bKDA - aKDA;
+      }
+      return b.win - a.win;
+    }
+    return b.played - a.played;
+  });
   return champ3Info;
 };
+
 const Box2 = (props) => {
   const { match20GameInfoRes, summonerRes } = props;
   const [infoPerGame, setInfoPerGame] = useState([]);
@@ -172,7 +187,7 @@ const Box2 = (props) => {
     const champ3Info = getChamp3Info(infoPerGame);
     setInfoPerGame(infoPerGame);
     setChamp3Info(champ3Info);
-  }, [match20GameInfoRes, summonerName]);
+  }, [champList, match20GameInfoRes, summonerName]);
 
   console.log("BOX2", match20GameInfoRes, summonerRes);
   console.log("챔피언 리스트", champList);
