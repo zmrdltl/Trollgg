@@ -31,7 +31,7 @@ const getSoloRankLeagueRes = (leagueRes) => {
 const Result = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
-  const trollPercent = 30;
+  const [trollPercent, setTrollPercent] = useState(0);
   const [isLoaded, setIsLoaded] = useState(1);
   const [summonerRes, setSummonerRes] = useState({});
   const [leagueRes, setLeagueRes] = useState({});
@@ -63,6 +63,8 @@ const Result = ({ location, match }) => {
     leagueRes = getSoloRankLeagueRes(leagueRes);
     let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
     const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
+    const trollPercent = await API.getTrollScore(summonerName);
+    console.log("트롤 퍼센트", trollPercent);
     setTier(leagueRes.tier);
     setSummonerRes(summonerRes);
     setId(summonerRes.id);
@@ -70,6 +72,7 @@ const Result = ({ location, match }) => {
     setLeaguesRes(leaguesRes);
     setMatchListRes(matchListRes);
     setMatch20GameInfoRes(match20GameInfoRes);
+    setTrollPercent(trollPercent);
   };
   useEffect(() => {
     mineData();
@@ -84,6 +87,7 @@ const Result = ({ location, match }) => {
   // console.log("소환사 속한 리그이름", leaguesRes.name);
   //console.log("이 소환사의 모든 match", matchList);
   //console.log("한 게임당 자세한 정보", match20GameInfoRes);
+  console.log("트롤 점수", trollPercent);
   return (
     <div style={styles.container}>
       {summonerRes.length === 0 || summonerName.length === 0 ? (

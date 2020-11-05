@@ -113,15 +113,22 @@ export const getParticipants = (data) => {
   const url = `${apiUrl}match/matches/participants`;
   return fetch
     .getServer(url, data)
-    .then((res) => JSON.parse(res))
+    .then((res) => res)
     .catch((err) => ({ err }));
 };
 
-// export const getWinRates = (data) => {
-//   const url = `${apiUrl}match/matches/participants`;
-//   return fetch
-//     .getServer(url, data)
-//     .then((res) => res.json())
-//     .then((res) => JSON.parse(res))
-//     .catch((err) => ({ err }));
-// }
+export const getopMost7Pick = (data) => {
+  const url = `${apiUrl}user/opMost7Pick?summonerName=`;
+  return fetch
+    .getServer(url, data)
+    .then((res) => res)
+    .catch((err) => ({ err }));
+};
+
+export const getTrollScore = (data) => {
+  const url = `${apiUrl}user/trollScore?summonerName=`;
+  return fetch
+    .getServer(url, data)
+    .then((res) => res)
+    .catch((err) => ({ err }));
+};

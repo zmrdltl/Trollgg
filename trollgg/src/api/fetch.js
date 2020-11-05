@@ -44,7 +44,7 @@ export const getServer = async (url, data) => {
       .catch(() =>
         console.log("Can't access " + url + " response. Blocked by browser?")
       );
-    console.log("web server response from rest api server!");
+    console.log("web server response from rest api server!", res);
     return res;
   } catch (e) {
     console.log("get" + e);
