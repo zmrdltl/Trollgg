@@ -137,6 +137,7 @@ const showPreferPosition = (preferPositionInfo, tier) => {
       winRate: {
         color: "#333",
         fontSize: "11px",
+        fontWeight: "bold",
       },
       line: {
         display: "inline-block",

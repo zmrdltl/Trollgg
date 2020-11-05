@@ -15,7 +15,7 @@ const TopHeaderBox = (props) => {
       msg2: "화가나면 악마가 됩니다. 주의하세요.",
       msg3: "디아블로 그 자체. 나가셔야합니다.",
     };
-    if (trollPercent <= 33) {
+    if (0 <= trollPercent && trollPercent <= 33) {
       resultMsg = msgCase.msg1;
     } else if (33 <= trollPercent && trollPercent <= 66) {
       resultMsg = msgCase.msg2;

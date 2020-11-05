@@ -1,17 +1,6 @@
 import React, { useState } from "react";
-import {
-  Navbar,
-  Nav,
-  Form,
-  FormControl,
-  Button,
-  NavDropdown,
-} from "react-bootstrap";
+import { Navbar, Nav, Form, FormControl, Button } from "react-bootstrap";
 import "bootstrap/dist/css/bootstrap.min.css";
-import axios from "axios";
-import styled from "styled-components";
-import { leagueRes, matchRes, accountId, summonerName } from "../util/User";
-import { URL_HEADER, RIOT_HEADER } from "../util/Auth";
 
 const Navigation = (props) => {
   const [summonerName, setSummonerName] = useState("");
