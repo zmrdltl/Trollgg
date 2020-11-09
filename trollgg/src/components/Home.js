@@ -50,7 +50,7 @@ const styles = {
   container: {
     display: "flex",
     width: "100%",
-    height: "500px",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
