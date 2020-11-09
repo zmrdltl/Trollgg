@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const ProgressBar = (props) => {
-  const { trollPercent, opacity } = props;
+  const { trollPercent, opacity,isLoaded } = props;
   const [completed, setCompleted] = useState(0);
 
   //위험도 그래프 그리기
@@ -11,7 +11,7 @@ const ProgressBar = (props) => {
         setCompleted(completed + 1);
       }, 5);
     }
-  }, [completed, trollPercent]);
+  }, [completed, trollPercent, isLoaded]);
 
   const styles = {
     container: {

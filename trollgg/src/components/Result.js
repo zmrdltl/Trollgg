@@ -32,7 +32,7 @@ const Result = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
   const [trollPercent, setTrollPercent] = useState(0);
-  const [isLoaded, setIsLoaded] = useState(1);
+  const [isLoaded, setIsLoaded] = useState(false);
   const [summonerRes, setSummonerRes] = useState({});
   const [leagueRes, setLeagueRes] = useState({});
   const [leaguesRes, setLeaguesRes] = useState({});
@@ -52,32 +52,36 @@ const Result = ({ location, match }) => {
   const mineData = async () => {
     console.log("data 쫘아악 얻어오기 실행됨");
     const summonerRes = await API.getRiotSummoner(summonerName);
-    const matchListRes = await API.getRiotMatchList({
-      accountId: summonerRes.accountId,
-      queue: 420,
-      season: 13,
-      beginIndex: 0,
-      endIndex: 20,
-    });
-    let leagueRes = await API.getRiotLeague(summonerRes.id);
-    leagueRes = getSoloRankLeagueRes(leagueRes);
-    let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
-    const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
-    const trollPercent = await API.getTrollScore(summonerName);
-    console.log("트롤 퍼센트", trollPercent);
-    setTier(leagueRes.tier);
-    setSummonerRes(summonerRes);
-    setId(summonerRes.id);
-    setLeagueRes(leagueRes);
-    setLeaguesRes(leaguesRes);
-    setMatchListRes(matchListRes);
-    setMatch20GameInfoRes(match20GameInfoRes);
-    setTrollPercent(trollPercent);
+    console.log(summonerRes);
+    if (Object.keys.summonerRes) {
+      const matchListRes = await API.getRiotMatchList({
+        accountId: summonerRes.accountId,
+        queue: 420,
+        season: 13,
+        beginIndex: 0,
+        endIndex: 20,
+      });
+      let leagueRes = await API.getRiotLeague(summonerRes.id);
+      leagueRes = getSoloRankLeagueRes(leagueRes);
+      let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
+      const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
+      const trollPercent = await API.getTrollScore(summonerName);
+      console.log("트롤 퍼센트", trollPercent);
+      setTier(leagueRes.tier);
+      setSummonerRes(summonerRes);
+      setId(summonerRes.id);
+      setLeagueRes(leagueRes);
+      setLeaguesRes(leaguesRes);
+      setMatchListRes(matchListRes);
+      setMatch20GameInfoRes(match20GameInfoRes);
+      setTrollPercent(trollPercent);
+    }
+    setIsLoaded(true);
   };
   useEffect(() => {
     mineData();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isLoaded]);
+  }, []);
 
   // console.log("summonerRes", summonerRes);
   // console.log("암호화된 summonerId", id);
@@ -90,32 +94,37 @@ const Result = ({ location, match }) => {
   console.log("트롤 점수", trollPercent);
   return (
     <div style={styles.container}>
-      {summonerRes.length === 0 || summonerName.length === 0 ? (
-        <h1>등록된 유저가 없습니다. </h1>
-      ) : (
-        <div>
-          <TopHeaderBox
-            summonerRes={summonerRes}
-            leagueRes={leagueRes}
-            trollPercent={trollPercent}
-            tier={tier}
-            // leagueRes={leagueRes}
-          />
-
-          <div style={styles.content}>
-            <SideContents
+      {isLoaded ? (
+        Object.keys.summonerRes ? (
+          <div>
+            <TopHeaderBox
               summonerRes={summonerRes}
               leagueRes={leagueRes}
+              trollPercent={trollPercent}
               tier={tier}
-              leagueName={leaguesRes.name}
+              isLoaded={isLoaded}
             />
-            <MainContents
-              summonerRes={summonerRes}
-              leagueRes={leagueRes}
-              match20GameInfoRes={match20GameInfoRes}
-            />
+
+            <div style={styles.content}>
+              <SideContents
+                summonerRes={summonerRes}
+                leagueRes={leagueRes}
+                tier={tier}
+                leagueName={leaguesRes.name}
+              />
+
+              <MainContents
+                summonerRes={summonerRes}
+                leagueRes={leagueRes}
+                match20GameInfoRes={match20GameInfoRes}
+              />
+            </div>
           </div>
-        </div>
+        ) : (
+          <div>해당 소환사가 없습니다.</div>
+        )
+      ) : (
+        <div style={styles.loading}>아</div>
       )}
     </div>
   );
@@ -138,5 +147,13 @@ const styles = {
     width: "1000px",
     minHeight: "500px",
     margin: "0 auto",
+  },
+
+  loading: {
+    display: "flex",
+    width: "90px",
+    height: "90px",
+    justifyContent: "center",
+    alignItems: "center",
   },
 };
