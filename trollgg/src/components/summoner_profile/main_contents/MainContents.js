@@ -59,7 +59,10 @@ const MainContents = (props) => {
         summonerRes={summonerRes}
         leagueRes={leagueRes}
       />
-      <GameAndItemList />
+      <GameAndItemList
+        match20GameInfoRes={match20GameInfoRes}
+        summonerRes={summonerRes}
+      />
     </div>
   );
 };

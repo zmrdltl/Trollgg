@@ -148,6 +148,7 @@ const styles = {
     alignItems: "center",
     textAlign: "center",
     justifyContent: "center",
+    border: "1px solid #cdd2d2",
   },
   champName: {
     color: "#555e5e",

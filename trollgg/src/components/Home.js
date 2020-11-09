@@ -55,6 +55,7 @@ const styles = {
     alignItems: "center",
     flexDirection: "column",
     backgroundSize: "cover",
+    background: "#f2f2f2",
   },
 
   topImage: {
