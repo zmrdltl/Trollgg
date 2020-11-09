@@ -52,8 +52,7 @@ const Result = ({ location, match }) => {
   const mineData = async () => {
     console.log("data 쫘아악 얻어오기 실행됨");
     const summonerRes = await API.getRiotSummoner(summonerName);
-    console.log(summonerRes);
-    if (Object.keys.summonerRes) {
+    if (Object.keys(summonerRes).length) {
       const matchListRes = await API.getRiotMatchList({
         accountId: summonerRes.accountId,
         queue: 420,
@@ -95,7 +94,7 @@ const Result = ({ location, match }) => {
   return (
     <div style={styles.container}>
       {isLoaded ? (
-        Object.keys.summonerRes ? (
+        Object.keys(summonerRes).length ? (
           <div>
             <TopHeaderBox
               summonerRes={summonerRes}
