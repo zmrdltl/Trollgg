@@ -109,6 +109,26 @@ const getInfoPerGame = (match20GameInfoRes, summonerName, champList) => {
   return infoPerGame;
 };
 
+const getTeamProfile = (match20GameInfoRes, champList) => {
+  const teamProfile = [];
+
+  for (let i = 0; i < match20GameInfoRes.length; i++) {
+    const oneGame = match20GameInfoRes[i];
+    for (let j = 0; j < 10; j++) {
+      const championId = oneGame.participants[j].championId;
+      const summonerName = oneGame.participantIdentities[j].player.summonerName;
+      let obj = {
+        championId: championId,
+        summonerName: summonerName,
+        enChampName: "",
+        koChampName: "",
+      };
+      setChampInfoPerGame(obj, champList);
+      teamProfile.push(obj);
+    }
+  }
+  return teamProfile;
+};
 const getGapTime = (gameCreation) => {
   const currentDate = Date.now();
   const gapTime = currentDate - gameCreation;
@@ -166,8 +186,6 @@ const getKillRate = (teamInfoPerGame, oneGameInfo) => {
   const assists = oneGameInfo.assists;
   const teamId = oneGameInfo.teamId;
   const totalTeamKills = teamInfoPerGame[parseInt(teamId / 100) - 1].totalKills;
-  const totalTeamAssists =
-    teamInfoPerGame[parseInt(teamId / 100) - 1].totalAssists;
   return Math.round(((kills + assists) / totalTeamKills) * 100);
 };
 
@@ -186,6 +204,11 @@ const getSpellText = (oneGameInfo, spellList) => {
   return sList;
 };
 
+const getWardColor = (win) => {
+  if (win === "Win") return "blue";
+  return "red";
+};
+
 const showStats = (
   match20GameInfoRes,
   summonerName,
@@ -199,8 +222,9 @@ const showStats = (
     champList
   );
   const teamInfoPerGame = getTeamInfoPerGame(match20GameInfoRes);
+  const teamProfile = getTeamProfile(match20GameInfoRes, champList);
   console.log("인포 퍼 게임", infoPerGame, teamInfoPerGame);
-
+  console.log("팀 프로필", teamProfile);
   const makeStats = () => {
     const statList = [];
     for (let i = 0; i < match20GameInfoRes.length; i++) {
@@ -234,7 +258,7 @@ const showStats = (
       const playedTime = getGapTime(gameCreation);
       const csPerMinute = Math.round((cs / (gameDuration / 60)) * 10) / 10;
       const killRate = getKillRate(teamInfoPerGame[i], infoPerGame[i]);
-
+      const wardColor = getWardColor(win);
       statList.push(
         <div
           style={{
@@ -431,7 +455,7 @@ const showStats = (
                 <img
                   style={{ width: "16px", height: "16px", marginRight: "4px" }}
                   alt="와드"
-                  src={`https://opgg-static.akamaized.net/images/site/summoner/icon-ward-blue.png`}
+                  src={`https://opgg-static.akamaized.net/images/site/summoner/icon-ward-${wardColor}.png`}
                 ></img>
 
                 {`제어와드 ${visionWardsBoughtInGame}`}
@@ -441,15 +465,153 @@ const showStats = (
             )}
           </div>
           <div style={styles.team100}>
-            <div style={{ display: "flex" }}>
-              <div>img</div>
-              <div>name</div>
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>{teamProfile[i * 10].summonerName}</div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 1].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 1].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 2].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 2].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 3].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 3].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 4].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 4].summonerName}
+              </div>
             </div>
           </div>
           <div style={styles.team200}>
-            <div style={{ display: "flex" }}>
-              <div>img</div>
-              <div>name</div>
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 5].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 5].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 6].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 6].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 7].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 7].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 8].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 8].summonerName}
+              </div>
+            </div>
+
+            <div style={styles.player}>
+              <div>
+                <img
+                  alt="챔프사진"
+                  style={styles.pChampImage}
+                  src={`https://opgg-static.akamaized.net/images/lol/champion/${
+                    teamProfile[i * 10 + 9].enChampName
+                  }.png?image=q_auto,w_46&v=1603864069`}
+                ></img>
+              </div>
+              <div style={styles.name}>
+                {teamProfile[i * 10 + 9].summonerName}
+              </div>
             </div>
           </div>
         </div>
@@ -589,5 +751,31 @@ const styles = {
   team200: {
     display: "block",
     width: "170px",
+  },
+  player: {
+    display: "flex",
+    width: "80px",
+    height: "18px",
+    marginLeft: "3px",
+    textAlign: "left",
+    whiteSpace: "nowrap",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  pChampImage: {
+    width: "16px",
+    height: "16px",
+    marginLeft: "4px",
+    borderRadius: "50%",
+  },
+  name: {
+    display: "block",
+    color: "inherit",
+    textDecoration: "none",
+    textOverflow: "ellipsis",
+    whiteSpace: "nowrap",
+    overflow: "hidden",
+    fontSize: "11px",
+    width: "70px",
   },
 };
