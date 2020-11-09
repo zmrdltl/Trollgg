@@ -1,7 +1,7 @@
 import React from "react";
 import ProgressBar from "../../../container/ProgressBar";
 const TopHeaderBox = (props) => {
-  const { trollPercent, summonerRes, leagueRes, tier } = props;
+  const { trollPercent, summonerRes, leagueRes, tier, isLoaded } = props;
   const summonerName = summonerRes.name;
   const summonerLevel = summonerRes.summonerLevel;
   const profileIconId = summonerRes.profileIconId;
@@ -113,7 +113,11 @@ const TopHeaderBox = (props) => {
       <div style={styles.progressBarContainer}>
         <div style={styles.name}>{summonerName}</div>
         <h2>Troll 위험도</h2>
-        <ProgressBar trollPercent={trollPercent} opacity={1} />
+        <ProgressBar
+          trollPercent={trollPercent}
+          opacity={1}
+          isLoaded={isLoaded}
+        />
       </div>
       {showResultMessage(trollPercent)}
     </div>
