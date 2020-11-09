@@ -35,11 +35,10 @@ const Home = () => {
 
         <button
           style={styles.button}
-          children={"검색"}
-          color={"#464964"}
-          background={"#e2e2e2"}
           onClick={() => moveToResultPage(summonerName)}
-        ></button>
+        >
+          검색
+        </button>
       </div>
     </div>
   );
@@ -50,7 +49,7 @@ const styles = {
   container: {
     display: "flex",
     width: "100%",
-    height: "500px",
+    height: "100%",
     justifyContent: "center",
     alignItems: "center",
     flexDirection: "column",
@@ -75,7 +74,7 @@ const styles = {
     width: "624px",
     height: " 50px",
     marginRight: "10px",
-    border: " 3px solid green",
+    border: " 3px solid #343a40",
   },
 
   button: {
@@ -85,5 +84,7 @@ const styles = {
     border: "none",
     borderRadius: "5px",
     fontSize: "15pt",
+    backgroundColor: "#343a40",
+    color: "#f2f2f2",
   },
 };
