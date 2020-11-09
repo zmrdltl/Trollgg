@@ -127,9 +127,10 @@ const styles = {
   container: {
     display: "block",
     width: "100%",
-    height: "100%",
+    height: "3000px",
     padding: "20px 20px 0 20px", //margin,padding: 상우하좌 순
     fontFamily: "Montserrat",
+    background: "#f2f2f2",
   },
 
   content: {
