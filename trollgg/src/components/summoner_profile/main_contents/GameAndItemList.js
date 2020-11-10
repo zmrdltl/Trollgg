@@ -746,11 +746,11 @@ const styles = {
   },
   team100: {
     display: "block",
-    width: "170px",
+    width: "120px",
   },
   team200: {
     display: "block",
-    width: "170px",
+    width: "120px",
   },
   player: {
     display: "flex",
