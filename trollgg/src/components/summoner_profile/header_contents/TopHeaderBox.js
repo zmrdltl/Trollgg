@@ -6,38 +6,6 @@ const TopHeaderBox = (props) => {
   const summonerLevel = summonerRes.summonerLevel;
   const profileIconId = summonerRes.profileIconId;
   //  const tier = leagueRes.tier;
-  const showResultMessage = (trollPercent) => {
-    let color = "#0000ff";
-    let resultMsg;
-
-    const msgCase = {
-      msg1: "선량한 시민입니다",
-      msg2: "화가나면 악마가 됩니다. 주의하세요.",
-      msg3: "디아블로 그 자체. 나가셔야합니다.",
-    };
-    if (0 <= trollPercent && trollPercent <= 33) {
-      resultMsg = msgCase.msg1;
-    } else if (33 <= trollPercent && trollPercent <= 66) {
-      resultMsg = msgCase.msg2;
-      color = "#ff00ff";
-    } else {
-      resultMsg = msgCase.msg3;
-      color = "#ff0000";
-    }
-    return (
-      <div
-        style={{
-          alignItems: "center",
-          display: "flex",
-          color: `${color}`,
-          fontSize: "24px",
-          fontWeight: "bold",
-        }}
-      >
-        {resultMsg}
-      </div>
-    );
-  };
 
   const styles = {
     topView: {
@@ -45,11 +13,7 @@ const TopHeaderBox = (props) => {
       width: "1000px",
       margin: "0 auto",
     },
-    progressBarContainer: {
-      alignItems: "center",
-      justifyContent: "center",
-      width: "500px",
-    },
+
     name: {
       color: " #242929",
       fontSize: "20px",
@@ -112,14 +76,7 @@ const TopHeaderBox = (props) => {
 
       <div style={styles.progressBarContainer}>
         <div style={styles.name}>{summonerName}</div>
-        <h2>Troll 위험도</h2>
-        <ProgressBar
-          trollPercent={trollPercent}
-          opacity={1}
-          isLoaded={isLoaded}
-        />
       </div>
-      {showResultMessage(trollPercent)}
     </div>
   );
 };

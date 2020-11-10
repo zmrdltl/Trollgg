@@ -5,6 +5,7 @@ import SideContents from "./summoner_profile/side_contents/SideContents";
 import MainContents from "./summoner_profile/main_contents/MainContents";
 import TopHeaderBox from "./summoner_profile/header_contents/TopHeaderBox.js";
 import * as API from "../api/API";
+import ProgressBar from "../container/ProgressBar";
 import * as Test from "./test";
 //행패성 leagueId: "54fb7852-29f5-44ac-8454-7a45a0b787d3"
 //queueType: "RANKED_SOLO_5x5"
@@ -27,6 +28,38 @@ const getSoloRankLeagueRes = (leagueRes) => {
     }
   }
 };
+const showResultMessage = (trollPercent) => {
+  let color = "#8977ad";
+  let resultMsg;
+
+  const msgCase = {
+    msg1: "선량한 시민입니다",
+    msg2: "화가나면 악마가 됩니다. 주의하세요.",
+    msg3: "디아블로 그 자체. 닷지요망!",
+  };
+  if (0 <= trollPercent && trollPercent <= 33) {
+    resultMsg = msgCase.msg1;
+  } else if (33 <= trollPercent && trollPercent <= 66) {
+    resultMsg = msgCase.msg2;
+    color = "#8919e6";
+  } else {
+    resultMsg = msgCase.msg3;
+    color = "#dc143c";
+  }
+  return (
+    <div
+      style={{
+        alignItems: "center",
+        display: "flex",
+        color: `${color}`,
+        fontSize: "24px",
+        fontWeight: "bold",
+      }}
+    >
+      {resultMsg}
+    </div>
+  );
+};
 
 const Result = ({ location, match }) => {
   const query = queryString.parse(location.search);
@@ -48,7 +81,6 @@ const Result = ({ location, match }) => {
   //const matchListRes = Test.matchListRes;
   //const match20GameInfoRes = Test.match20GameInfoRes;
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-
   const mineData = async () => {
     console.log("data 쫘아악 얻어오기 실행됨");
     const summonerRes = await API.getRiotSummoner(summonerName);
@@ -99,11 +131,22 @@ const Result = ({ location, match }) => {
             <TopHeaderBox
               summonerRes={summonerRes}
               leagueRes={leagueRes}
-              trollPercent={trollPercent}
               tier={tier}
               isLoaded={isLoaded}
             />
-
+            {trollPercent !== null ? (
+              <div style={styles.progressBarContainer}>
+                <h3 style={{ fontWeight: "bold" }}>Troll 위험도</h3>
+                <ProgressBar
+                  trollPercent={trollPercent}
+                  opacity={1}
+                  isLoaded={isLoaded}
+                />
+                <div>{showResultMessage(trollPercent)}</div>
+              </div>
+            ) : (
+              <div>소환사 정보는 있으나 트롤 점수가 없습니다.</div>
+            )}
             <div style={styles.content}>
               <SideContents
                 summonerRes={summonerRes}
@@ -154,5 +197,11 @@ const styles = {
     height: "90px",
     justifyContent: "center",
     alignItems: "center",
+  },
+  progressBarContainer: {
+    display: "block",
+    width: "1000px",
+    padding: "50px",
+    margin: "0px auto",
   },
 };

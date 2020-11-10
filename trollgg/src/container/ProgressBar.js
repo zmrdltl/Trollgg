@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 const ProgressBar = (props) => {
-  const { trollPercent, opacity,isLoaded } = props;
+  const { trollPercent, opacity, isLoaded } = props;
   const [completed, setCompleted] = useState(0);
 
   //위험도 그래프 그리기
@@ -15,7 +15,7 @@ const ProgressBar = (props) => {
 
   const styles = {
     container: {
-      backgroundColor: "#f4f4f4",
+      backgroundColor: "#6a5acd",
       fontFamily: "Montserrat",
       borderRadius: "22px",
       display: "flex",
