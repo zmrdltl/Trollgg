@@ -5,7 +5,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Navigation = (props) => {
   const [summonerName, setSummonerName] = useState("");
   const moveToSummonerPage = (summonerName) => {
-    document.location.href = `/TrollSearchResult?name=${summonerName}`;
+    document.location.href = `/Result?name=${summonerName}`;
   };
 
   const handleKeyPress = (e) => {
