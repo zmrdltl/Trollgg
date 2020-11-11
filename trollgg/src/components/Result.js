@@ -7,6 +7,8 @@ import TopHeaderBox from "./summoner_profile/header_contents/TopHeaderBox.js";
 import * as API from "../api/API";
 import ProgressBar from "../container/ProgressBar";
 import * as Test from "./test";
+import { css } from "@emotion/core";
+import DotLoader from "react-spinners/DotLoader";
 //행패성 leagueId: "54fb7852-29f5-44ac-8454-7a45a0b787d3"
 //queueType: "RANKED_SOLO_5x5"
 //rank: "로마숫자"
@@ -27,38 +29,6 @@ const getSoloRankLeagueRes = (leagueRes) => {
       return leagueRes[i];
     }
   }
-};
-const showResultMessage = (trollPercent) => {
-  let color = "#8977ad";
-  let resultMsg;
-
-  const msgCase = {
-    msg1: "선량한 시민입니다",
-    msg2: "화가나면 악마가 됩니다. 주의하세요.",
-    msg3: "디아블로 그 자체. 닷지요망!",
-  };
-  if (0 <= trollPercent && trollPercent <= 33) {
-    resultMsg = msgCase.msg1;
-  } else if (33 <= trollPercent && trollPercent <= 66) {
-    resultMsg = msgCase.msg2;
-    color = "#8919e6";
-  } else {
-    resultMsg = msgCase.msg3;
-    color = "#dc143c";
-  }
-  return (
-    <div
-      style={{
-        alignItems: "center",
-        display: "flex",
-        color: `${color}`,
-        fontSize: "24px",
-        fontWeight: "bold",
-      }}
-    >
-      {resultMsg}
-    </div>
-  );
 };
 
 const Result = ({ location, match }) => {
@@ -82,29 +52,29 @@ const Result = ({ location, match }) => {
   //const match20GameInfoRes = Test.match20GameInfoRes;
   //!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   const mineData = async () => {
-    console.log("data 쫘아악 얻어오기 실행됨");
+    //   console.log("data 쫘아악 얻어오기 실행됨");
     const summonerRes = await API.getRiotSummoner(summonerName);
     if (Object.keys(summonerRes).length) {
-      const matchListRes = await API.getRiotMatchList({
-        accountId: summonerRes.accountId,
-        queue: 420,
-        season: 13,
-        beginIndex: 0,
-        endIndex: 20,
-      });
+      //     const matchListRes = await API.getRiotMatchList({
+      //       accountId: summonerRes.accountId,
+      //       queue: 420,
+      //       season: 13,
+      //       beginIndex: 0,
+      //       endIndex: 20,
+      //     });
       let leagueRes = await API.getRiotLeague(summonerRes.id);
       leagueRes = getSoloRankLeagueRes(leagueRes);
-      let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
-      const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
+      //     let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
+      //     const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
       const trollPercent = await API.getTrollScore(summonerName);
       console.log("트롤 퍼센트", trollPercent);
       setTier(leagueRes.tier);
       setSummonerRes(summonerRes);
-      setId(summonerRes.id);
+      //     setId(summonerRes.id);
       setLeagueRes(leagueRes);
-      setLeaguesRes(leaguesRes);
-      setMatchListRes(matchListRes);
-      setMatch20GameInfoRes(match20GameInfoRes);
+      //     setLeaguesRes(leaguesRes);
+      //     setMatchListRes(matchListRes);
+      //     setMatch20GameInfoRes(match20GameInfoRes);
       setTrollPercent(trollPercent);
     }
     setIsLoaded(true);
@@ -125,6 +95,14 @@ const Result = ({ location, match }) => {
   console.log("트롤 점수", trollPercent);
   return (
     <div style={styles.container}>
+      {/* <div style={styles.mainPic}>
+        <img
+          style={styles.topImage}
+          src="https://attach.s.op.gg/logo/20200610124936.f53f670b00d598130e25a1f1549a4a6f.png"
+          title="이즈리얼과 카이사"
+          alt="OP.GG Logo (이즈리얼과 카이사)"
+        ></img>
+      </div> */}
       {isLoaded ? (
         Object.keys(summonerRes).length ? (
           <div>
@@ -133,21 +111,29 @@ const Result = ({ location, match }) => {
               leagueRes={leagueRes}
               tier={tier}
               isLoaded={isLoaded}
+              trollPercent={trollPercent}
             />
             {trollPercent !== null ? (
               <div style={styles.progressBarContainer}>
-                <h3 style={{ fontWeight: "bold" }}>Troll 위험도</h3>
+                <div style={{ fontWeight: "bold", fontSize: "50px" }}>
+                  Troll 위험도
+                </div>
                 <ProgressBar
                   trollPercent={trollPercent}
                   opacity={1}
                   isLoaded={isLoaded}
                 />
-                <div>{showResultMessage(trollPercent)}</div>
+                <div>
+                  <img
+                    src={require("../assets/troll1.png")}
+                    alt="트롤사진"
+                  ></img>
+                </div>
               </div>
             ) : (
               <div>소환사 정보는 있으나 트롤 점수가 없습니다.</div>
             )}
-            <div style={styles.content}>
+            {/* <div style={styles.content}>
               <SideContents
                 summonerRes={summonerRes}
                 leagueRes={leagueRes}
@@ -160,13 +146,34 @@ const Result = ({ location, match }) => {
                 leagueRes={leagueRes}
                 match20GameInfoRes={match20GameInfoRes}
               />
-            </div>
+            </div> */}
           </div>
         ) : (
           <div>해당 소환사가 없습니다.</div>
         )
       ) : (
-        <div style={styles.loading}>아</div>
+        <div
+          style={{
+            margin: "0px auto",
+            verticalAlign: "middle",
+            marginTop: "40px",
+          }}
+        >
+          <div
+            style={{
+              fontSize: "50px",
+              textAlign: "center",
+            }}
+          >
+            트롤점수를 계산중입니다.
+          </div>
+          <DotLoader
+            css={styles.spinner}
+            size={150}
+            color={"#123abc"}
+            loading={!isLoaded}
+          />
+        </div>
       )}
     </div>
   );
@@ -178,12 +185,11 @@ const styles = {
   container: {
     display: "block",
     width: "100%",
-    height: "3000px",
-    padding: "20px 20px 0 20px", //margin,padding: 상우하좌 순
+    height: "100%",
+    padding: "40px 20px 0 20px", //margin,padding: 상우하좌 순
     fontFamily: "Montserrat",
     background: "#f2f2f2",
   },
-
   content: {
     display: "flex",
     width: "1000px",
@@ -191,17 +197,25 @@ const styles = {
     margin: "0 auto",
   },
 
-  loading: {
-    display: "flex",
-    width: "90px",
-    height: "90px",
-    justifyContent: "center",
-    alignItems: "center",
-  },
   progressBarContainer: {
     display: "block",
     width: "1000px",
     padding: "50px",
     margin: "0px auto",
+  },
+  main: {
+    width: "100%",
+    height: "1000px",
+  },
+  mainPic: {
+    display: "flex",
+    width: "100%",
+    height: "300px",
+    justifyContent: "center",
+  },
+  spinner: {
+    display: "block",
+    margin: "0 auto",
+    borderColor: "red",
   },
 };
