@@ -20,6 +20,7 @@ const ProgressBar = (props) => {
       borderRadius: "22px",
       display: "flex",
       margin: 0,
+      width: "750px",
     },
 
     progressData: {

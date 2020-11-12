@@ -13,6 +13,39 @@ import DotLoader from "react-spinners/DotLoader";
 //queueType: "RANKED_SOLO_5x5"
 //rank: "로마숫자"
 //encryptedSummornerId-> summonerId: "EuBfqKp2DfCRLTUqZlyD3oq25KWG5TJEAh0osQE6QtrVRA"
+const showResultMessage = (trollPercent) => {
+  let color = "#8977ad";
+  let resultMsg;
+
+  const msgCase = {
+    msg1: "선량한 시민입니다",
+    msg2: "화가나면 악마가 됩니다. 주의하세요.",
+    msg3: "디아블로 그 자체. 닷지요망!",
+  };
+  if (0 <= trollPercent && trollPercent <= 33) {
+    resultMsg = msgCase.msg1;
+  } else if (33 <= trollPercent && trollPercent <= 66) {
+    resultMsg = msgCase.msg2;
+    color = "#8919e6";
+  } else {
+    resultMsg = msgCase.msg3;
+    color = "#dc143c";
+  }
+  return (
+    <div
+      style={{
+        alignItems: "center",
+        display: "flex",
+        color: `${color}`,
+        fontSize: "30px",
+        fontWeight: "bold",
+        justifyContent: "center",
+      }}
+    >
+      {resultMsg}
+    </div>
+  );
+};
 
 const get20ResGameInfoRes = async (matchListRes) => {
   const match20GameInfo = [];
@@ -31,6 +64,15 @@ const getSoloRankLeagueRes = (leagueRes) => {
   }
 };
 
+const getTrollText = (trollPercent) => {
+  if (0 <= trollPercent && trollPercent <= 33) {
+    return 1;
+  } else if (33 <= trollPercent && trollPercent <= 66) {
+    return 3;
+  } else {
+    return 2;
+  }
+};
 const Result = ({ location, match }) => {
   const query = queryString.parse(location.search);
   const summonerName = query.name;
@@ -44,6 +86,7 @@ const Result = ({ location, match }) => {
   const [tier, setTier] = useState("");
   const [match20GameInfoRes, setMatch20GameInfoRes] = useState([]);
   const [matchListRes, setMatchListRes] = useState({});
+  const [trollId, setTrollId] = useState("");
   //TEST!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
   // const summonerRes = Test.summonerRes;
   // const leagueRes = Test.leagueRes;
@@ -67,6 +110,8 @@ const Result = ({ location, match }) => {
       //     let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
       //     const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
       const trollPercent = await API.getTrollScore(summonerName);
+      const trollId = getTrollText(trollPercent);
+
       console.log("트롤 퍼센트", trollPercent);
       setTier(leagueRes.tier);
       setSummonerRes(summonerRes);
@@ -76,6 +121,7 @@ const Result = ({ location, match }) => {
       //     setMatchListRes(matchListRes);
       //     setMatch20GameInfoRes(match20GameInfoRes);
       setTrollPercent(trollPercent);
+      setTrollId(trollId);
     }
     setIsLoaded(true);
   };
@@ -105,29 +151,49 @@ const Result = ({ location, match }) => {
       </div> */}
       {isLoaded ? (
         Object.keys(summonerRes).length ? (
-          <div>
-            <TopHeaderBox
-              summonerRes={summonerRes}
-              leagueRes={leagueRes}
-              tier={tier}
-              isLoaded={isLoaded}
-              trollPercent={trollPercent}
-            />
+          <div style={styles.progressBarContainer}>
+            <div style={styles.pContainer}>
+              <img
+                src={require(`../assets/troll${trollId}.png`)}
+                alt="트롤사진"
+                style={{
+                  marginBottom: "20px",
+                  borderRadius: "10px",
+                  justifyContent: "center",
+                  width: "590px",
+                  height: "590px",
+                }}
+              ></img>
+            </div>
+            <div style={styles.pContainer}>
+              <TopHeaderBox
+                summonerRes={summonerRes}
+                leagueRes={leagueRes}
+                tier={tier}
+                isLoaded={isLoaded}
+                trollPercent={trollPercent}
+              />
+            </div>
             {trollPercent !== null ? (
               <div style={styles.progressBarContainer}>
-                <div style={{ fontWeight: "bold", fontSize: "50px" }}>
-                  Troll 위험도
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <div
+                    style={{
+                      fontWeight: "bold",
+                      fontSize: "40px",
+                      textAlign: "center",
+                    }}
+                  >
+                    Troll 위험도 : &nbsp;
+                  </div>
+                  {showResultMessage(trollPercent)}
                 </div>
-                <ProgressBar
-                  trollPercent={trollPercent}
-                  opacity={1}
-                  isLoaded={isLoaded}
-                />
-                <div>
-                  <img
-                    src={require("../assets/troll1.png")}
-                    alt="트롤사진"
-                  ></img>
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                  <ProgressBar
+                    trollPercent={trollPercent}
+                    opacity={1}
+                    isLoaded={isLoaded}
+                  />
                 </div>
               </div>
             ) : (
@@ -185,8 +251,8 @@ const styles = {
   container: {
     display: "block",
     width: "100%",
-    height: "100%",
-    padding: "40px 20px 0 20px", //margin,padding: 상우하좌 순
+    height: "1500px",
+    padding: "20px 20px 0 20px", //margin,padding: 상우하좌 순
     fontFamily: "Montserrat",
     background: "#f2f2f2",
   },
@@ -194,14 +260,18 @@ const styles = {
     display: "flex",
     width: "1000px",
     minHeight: "500px",
-    margin: "0 auto",
   },
 
   progressBarContainer: {
     display: "block",
     width: "1000px",
-    padding: "50px",
-    margin: "0px auto",
+    margin: "0 auto",
+  },
+  pContainer: {
+    display: "flex",
+    width: "1000px",
+    justifyContent: "center",
+    alignItems: "center",
   },
   main: {
     width: "100%",

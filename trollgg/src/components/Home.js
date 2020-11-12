@@ -28,7 +28,7 @@ const Home = () => {
       <div style={styles.topSpan}>
         <input
           style={styles.input}
-          placeholder=" 소환사 이름"
+          placeholder=" 트롤러 이름"
           value={summonerName}
           onChange={(e) => setSummonerName(e.target.value)}
           onKeyPress={(e) => handleKeyPress(e)}
@@ -89,6 +89,7 @@ const styles = {
     justifyContent: "center",
     alignItems: "center",
     margin: "0px auto",
+    borderRadius: "10px",
   },
 
   topSpan: {
