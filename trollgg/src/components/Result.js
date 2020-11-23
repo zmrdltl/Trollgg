@@ -98,28 +98,28 @@ const Result = ({ location, match }) => {
     //   console.log("data 쫘아악 얻어오기 실행됨");
     const summonerRes = await API.getRiotSummoner(summonerName);
     if (Object.keys(summonerRes).length) {
-      //     const matchListRes = await API.getRiotMatchList({
-      //       accountId: summonerRes.accountId,
-      //       queue: 420,
-      //       season: 13,
-      //       beginIndex: 0,
-      //       endIndex: 20,
-      //     });
+      const matchListRes = await API.getRiotMatchList({
+        accountId: summonerRes.accountId,
+        queue: 420,
+        season: 13,
+        beginIndex: 0,
+        endIndex: 20,
+      });
       let leagueRes = await API.getRiotLeague(summonerRes.id);
       leagueRes = getSoloRankLeagueRes(leagueRes);
-      //     let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
-      //     const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
+      let leaguesRes = await API.getRiotLeagues(leagueRes.leagueId);
+      const match20GameInfoRes = await get20ResGameInfoRes(matchListRes);
       const trollPercent = await API.getTrollScore(summonerName);
       const trollId = getTrollText(trollPercent);
 
       console.log("트롤 퍼센트", trollPercent);
       setTier(leagueRes.tier);
       setSummonerRes(summonerRes);
-      //     setId(summonerRes.id);
+      setId(summonerRes.id);
       setLeagueRes(leagueRes);
-      //     setLeaguesRes(leaguesRes);
-      //     setMatchListRes(matchListRes);
-      //     setMatch20GameInfoRes(match20GameInfoRes);
+      setLeaguesRes(leaguesRes);
+      setMatchListRes(matchListRes);
+      setMatch20GameInfoRes(match20GameInfoRes);
       setTrollPercent(trollPercent);
       setTrollId(trollId);
     }
@@ -141,14 +141,6 @@ const Result = ({ location, match }) => {
   console.log("트롤 점수", trollPercent);
   return (
     <div style={styles.container}>
-      {/* <div style={styles.mainPic}>
-        <img
-          style={styles.topImage}
-          src="https://attach.s.op.gg/logo/20200610124936.f53f670b00d598130e25a1f1549a4a6f.png"
-          title="이즈리얼과 카이사"
-          alt="OP.GG Logo (이즈리얼과 카이사)"
-        ></img>
-      </div> */}
       {isLoaded ? (
         Object.keys(summonerRes).length ? (
           <div style={styles.progressBarContainer}>
@@ -199,7 +191,7 @@ const Result = ({ location, match }) => {
             ) : (
               <div>소환사 정보는 있으나 트롤 점수가 없습니다.</div>
             )}
-            {/* <div style={styles.content}>
+            <div style={styles.content}>
               <SideContents
                 summonerRes={summonerRes}
                 leagueRes={leagueRes}
@@ -212,7 +204,7 @@ const Result = ({ location, match }) => {
                 leagueRes={leagueRes}
                 match20GameInfoRes={match20GameInfoRes}
               />
-            </div> */}
+            </div>
           </div>
         ) : (
           <div>해당 소환사가 없습니다.</div>
@@ -251,7 +243,7 @@ const styles = {
   container: {
     display: "block",
     width: "100%",
-    height: "1500px",
+    height: "3500px",
     padding: "20px 20px 0 20px", //margin,padding: 상우하좌 순
     fontFamily: "Montserrat",
     background: "#f2f2f2",
