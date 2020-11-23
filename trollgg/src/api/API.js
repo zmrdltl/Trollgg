@@ -1,7 +1,7 @@
 import React from "react";
 import * as fetch from "./fetch";
 
-const apiUrl = "http://52.78.153.246:4000/api/";
+const apiUrl = "http://52.78.51.19:4000/api/";
 // const apiUrl = "http://localhost:4000/api/";
 
 export const getChampList = () => {
