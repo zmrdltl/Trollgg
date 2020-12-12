@@ -180,7 +180,13 @@ const Result = ({ location, match }) => {
                   </div>
                   {showResultMessage(trollPercent)}
                 </div>
-                <div style={{ display: "flex", justifyContent: "center" }}>
+                <div
+                  style={{
+                    display: "flex",
+                    justifyContent: "center",
+                    marginBottom: "15px",
+                  }}
+                >
                   <ProgressBar
                     trollPercent={trollPercent}
                     opacity={1}
