@@ -9,6 +9,7 @@ web site for find troll
 
 ## 폴더구조
 
+```bash
 ├── README.md                               - 프로젝트 설명 파일
 ├── SECURITY.md                             - github LSD dependency issue 해결용 파일
 └── trollgg/                                - 전체 소스 저장된 폴더
@@ -74,3 +75,4 @@ web site for find troll
     ├── package-lock.json                   - npm 버전범위 설정
     ├── yarn.lock                           - yarn 버전범위 설정
     └── .gitignore                          - github로 업로드 하지 않을 파일 및 폴더 리스트
+```
